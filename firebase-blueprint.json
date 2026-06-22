@@ -1,0 +1,16 @@
+{
+  "collections": {
+    "enquiries": {
+      "schema": {
+        "name": { "type": "string" },
+        "companyName": { "type": "string" },
+        "phone": { "type": "string" },
+        "email": { "type": "string" },
+        "industry": { "type": "string" },
+        "budget": { "type": "string" },
+        "message": { "type": "string" },
+        "createdAt": { "type": "timestamp" }
+      }
+    }
+  }
+}

@@ -1,0 +1,6 @@
+{
+  "name": "Supreme Ads",
+  "description": "Supreme Ads is a performance-focused Meta Ads company helping premium businesses scale profitably.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
