@@ -86,16 +86,19 @@ export default function ContactForm() {
               {!submitted ? (
                 <motion.form
                   key="form"
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  exit={{ opacity: 0 }}
+                  initial={{ opacity: 0, y: 15 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -15 }}
+                  transition={{ duration: 0.6, ease: 'easeOut' }}
                   onSubmit={handleSubmit}
-                  className="space-y-6"
+                  className="space-y-8 bg-slate-50/40 p-8 md:p-10 border border-slate-100 rounded-2xl shadow-xl relative"
                 >
+                  <div className="absolute top-0 right-0 w-32 h-32 bg-accent/2 rounded-bl-full pointer-events-none" />
+                  
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                     {/* Name */}
-                    <div className="space-y-1.5">
-                      <label htmlFor="name" className="text-[10px] font-heading font-semibold text-gray-500 uppercase tracking-widest">
+                    <div className="space-y-2">
+                      <label htmlFor="name" className="text-[10px] font-heading font-semibold text-primary uppercase tracking-[0.2em] block">
                         Full Name *
                       </label>
                       <input
@@ -106,13 +109,13 @@ export default function ContactForm() {
                         value={formData.name}
                         onChange={handleInputChange}
                         placeholder="Johnathan Doe"
-                        className="w-full px-4 py-3 border border-gray-200 outline-none rounded-lg text-xs font-sans transition-all focus:border-accent"
+                        className="w-full px-5 py-3.5 border border-slate-200 bg-white/70 focus:bg-white text-xs font-sans transition-all duration-300 focus:ring-1 focus:ring-accent/40 focus:border-accent outline-none rounded-lg text-primary shadow-inner"
                       />
                     </div>
 
                     {/* Company Name */}
-                    <div className="space-y-1.5">
-                      <label htmlFor="companyName" className="text-[10px] font-heading font-semibold text-gray-500 uppercase tracking-widest">
+                    <div className="space-y-2">
+                      <label htmlFor="companyName" className="text-[10px] font-heading font-semibold text-primary uppercase tracking-[0.2em] block">
                         Company Name *
                       </label>
                       <input
@@ -123,15 +126,15 @@ export default function ContactForm() {
                         value={formData.companyName}
                         onChange={handleInputChange}
                         placeholder="Acme Premium Ltd"
-                        className="w-full px-4 py-3 border border-gray-200 outline-none rounded-lg text-xs font-sans transition-all focus:border-accent"
+                        className="w-full px-5 py-3.5 border border-slate-200 bg-white/70 focus:bg-white text-xs font-sans transition-all duration-300 focus:ring-1 focus:ring-accent/40 focus:border-accent outline-none rounded-lg text-primary shadow-inner"
                       />
                     </div>
                   </div>
 
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                     {/* Email */}
-                    <div className="space-y-1.5">
-                      <label htmlFor="email" className="text-[10px] font-heading font-semibold text-gray-500 uppercase tracking-widest">
+                    <div className="space-y-2">
+                      <label htmlFor="email" className="text-[10px] font-heading font-semibold text-primary uppercase tracking-[0.2em] block">
                         Email Address *
                       </label>
                       <input
@@ -142,13 +145,13 @@ export default function ContactForm() {
                         value={formData.email}
                         onChange={handleInputChange}
                         placeholder="ceo@brand.com"
-                        className="w-full px-4 py-3 border border-gray-200 outline-none rounded-lg text-xs font-sans transition-all focus:border-accent"
+                        className="w-full px-5 py-3.5 border border-slate-200 bg-white/70 focus:bg-white text-xs font-sans transition-all duration-300 focus:ring-1 focus:ring-accent/40 focus:border-accent outline-none rounded-lg text-primary shadow-inner"
                       />
                     </div>
 
                     {/* Phone */}
-                    <div className="space-y-1.5">
-                      <label htmlFor="phone" className="text-[10px] font-heading font-semibold text-gray-500 uppercase tracking-widest">
+                    <div className="space-y-2">
+                      <label htmlFor="phone" className="text-[10px] font-heading font-semibold text-primary uppercase tracking-[0.2em] block">
                         Phone Number *
                       </label>
                       <input
@@ -159,14 +162,14 @@ export default function ContactForm() {
                         value={formData.phone}
                         onChange={handleInputChange}
                         placeholder="+1 (555) 000-0000"
-                        className="w-full px-4 py-3 border border-gray-200 outline-none rounded-lg text-xs font-sans transition-all focus:border-accent"
+                        className="w-full px-5 py-3.5 border border-slate-200 bg-white/70 focus:bg-white text-xs font-sans transition-all duration-300 focus:ring-1 focus:ring-accent/40 focus:border-accent outline-none rounded-lg text-primary shadow-inner"
                       />
                     </div>
                   </div>
 
                   {/* Industry selection dropdown */}
-                  <div className="space-y-1.5">
-                    <label htmlFor="industry" className="text-[10px] font-heading font-semibold text-gray-500 uppercase tracking-widest">
+                  <div className="space-y-2">
+                    <label htmlFor="industry" className="text-[10px] font-heading font-semibold text-primary uppercase tracking-[0.2em] block">
                       Your Industry Segment *
                     </label>
                     <select
@@ -175,7 +178,7 @@ export default function ContactForm() {
                       required
                       value={formData.industry}
                       onChange={handleInputChange}
-                      className="w-full px-4 py-3 border border-gray-200 bg-white outline-none rounded-lg text-xs font-sans transition-all focus:border-accent"
+                      className="w-full px-5 py-3.5 border border-slate-200 bg-white/70 focus:bg-white text-xs font-sans transition-all duration-300 focus:ring-1 focus:ring-accent/40 focus:border-accent outline-none rounded-lg text-primary shadow-inner appearance-none cursor-pointer"
                     >
                       <option value="">Select industry classification...</option>
                       {industryGroups.map((group) => (
@@ -189,10 +192,10 @@ export default function ContactForm() {
 
                   {/* Budget Selector */}
                   <div className="space-y-3">
-                    <label className="text-[10px] font-heading font-semibold text-gray-500 uppercase tracking-widest block">
-                      Estimated Monthly Advertising Budget (USD)
+                    <label className="text-[10px] font-heading font-semibold text-primary uppercase tracking-[0.2em] block">
+                      Estimated Monthly Advertising Budget
                     </label>
-                    <div className="flex flex-wrap gap-2">
+                    <div className="flex flex-wrap gap-2.5">
                       {budgetTiers.map((tier) => {
                         const isSelected = formData.budget === tier;
                         return (
@@ -200,10 +203,10 @@ export default function ContactForm() {
                             key={tier}
                             type="button"
                             onClick={() => handleBudgetSelect(tier)}
-                            className={`px-4 py-2 border text-[10px] tracking-widest uppercase transition-all duration-300 rounded ${
+                            className={`px-4 py-3 border text-[9px] font-heading font-semibold tracking-widest uppercase transition-all duration-350 rounded-lg cursor-pointer ${
                               isSelected
-                                ? 'bg-primary text-white border-primary shadow-sm'
-                                : 'border-gray-200 text-gray-500 hover:border-gray-300 hover:bg-gray-50'
+                                ? 'bg-primary text-white border-primary shadow-md transform scale-[1.02]'
+                                : 'border-slate-200 bg-white text-slate-500 hover:border-accent/40 hover:text-primary hover:bg-slate-50'
                             }`}
                           >
                             {tier}
@@ -214,8 +217,8 @@ export default function ContactForm() {
                   </div>
 
                   {/* Message */}
-                  <div className="space-y-1.5">
-                    <label htmlFor="message" className="text-[10px] font-heading font-semibold text-gray-500 uppercase tracking-widest">
+                  <div className="space-y-2">
+                    <label htmlFor="message" className="text-[10px] font-heading font-semibold text-primary uppercase tracking-[0.2em] block font-heading">
                       Campaign Message / Goals *
                     </label>
                     <textarea
@@ -226,7 +229,7 @@ export default function ContactForm() {
                       value={formData.message}
                       onChange={handleInputChange}
                       placeholder="Outline your current conversion rates, average order value, or biggest scaling hurdles..."
-                      className="w-full px-4 py-3 border border-gray-200 outline-none rounded-lg text-xs font-sans transition-all focus:border-accent resize-none"
+                      className="w-full px-5 py-4 border border-slate-200 bg-white/70 focus:bg-white text-xs font-sans transition-all duration-300 focus:ring-1 focus:ring-accent/40 focus:border-accent outline-none rounded-lg text-primary shadow-inner resize-none"
                     />
                   </div>
 
@@ -234,17 +237,17 @@ export default function ContactForm() {
                   <button
                     type="submit"
                     disabled={isSubmitting}
-                    className="w-full bg-accent hover:bg-accent-dark text-primary font-heading font-semibold text-xs tracking-[0.2em] py-4 uppercase transition-all duration-300 shadow-lg flex items-center justify-center space-x-2 cursor-pointer"
+                    className="w-full bg-accent hover:bg-accent-dark text-primary font-heading font-bold text-xs tracking-[0.25em] py-4.5 uppercase transition-all duration-300 shadow-xl flex items-center justify-center space-x-2.5 cursor-pointer hover:shadow-accent/10 border border-accent/20"
                   >
                     {isSubmitting ? (
                       <>
                         <span className="w-4 h-4 border-2 border-primary border-t-transparent rounded-full animate-spin" />
-                        <span>Verifying Coordinates...</span>
+                        <span>Syncing Briefing...</span>
                       </>
                     ) : (
                       <>
                         <span>Initiate Scaling Strategy</span>
-                        <Send size={12} />
+                        <Send size={11} className="stroke-[2px]" />
                       </>
                     )}
                   </button>
