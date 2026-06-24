@@ -44,7 +44,7 @@ export default function HowWeWork() {
               </div>
 
               {/* Step Description */}
-              <p className="font-sans text-xs text-gray-500 leading-relaxed font-light">
+              <p className="font-sans text-xs text-slate-700 leading-relaxed">
                 {step.description}
               </p>
               

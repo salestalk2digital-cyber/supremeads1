@@ -61,10 +61,10 @@ export default function AboutPage() {
               We Capture <span className="font-serif italic text-accent font-light lowercase">market share.</span>
             </h2>
             <div className="w-12 h-1 bg-accent" />
-            <p className="text-slate-600 font-sans text-sm md:text-base leading-relaxed font-light">
+            <p className="text-slate-800 font-sans text-sm md:text-base leading-relaxed">
               Founded in 2018, Supreme Ads was engineered to solve a critical market crisis: premium brands burning millions of dollars on abstract digital marketing agencies who look at clicks instead of customer economic models.
             </p>
-            <p className="text-slate-600 font-sans text-sm md:text-base leading-relaxed font-light">
+            <p className="text-slate-800 font-sans text-sm md:text-base leading-relaxed">
               We restructured the framework. We built a hyper-specialized team of Meta Ads architects, graphic directors, copy specialists, and Conversion API backend developers. We combined this with direct mathematical modeling to turn digital traffic into verified growth assets.
             </p>
           </div>
@@ -78,7 +78,7 @@ export default function AboutPage() {
                 <div className="text-[10px] uppercase font-heading font-semibold text-accent tracking-widest mb-2">
                   {met.label}
                 </div>
-                <p className="text-xs text-slate-500 font-sans font-light leading-relaxed">
+                <p className="text-xs text-slate-700 font-sans leading-relaxed">
                   {met.desc}
                 </p>
               </div>
@@ -113,7 +113,7 @@ export default function AboutPage() {
                 <h3 className="font-heading font-semibold text-sm text-primary mb-3">
                   {v.title}
                 </h3>
-                <p className="text-xs text-slate-500 font-sans font-light leading-relaxed">
+                <p className="text-xs text-slate-700 font-sans leading-relaxed">
                   {v.desc}
                 </p>
               </div>

@@ -55,7 +55,7 @@ export default function IndustriesPage() {
               <h3 className="font-heading font-semibold text-lg text-primary uppercase">
                 Audience Filter Center
               </h3>
-              <p className="text-xs text-slate-500 font-light font-sans">
+              <p className="text-xs text-slate-700 font-sans font-medium">
                 Review our historical segment coverage across 42 micro-niches.
               </p>
             </div>
@@ -82,7 +82,7 @@ export default function IndustriesPage() {
                 className={`py-2.5 px-5 font-heading text-[10px] tracking-wider uppercase whitespace-nowrap transition-all ${
                   activeTab === cat
                     ? 'bg-accent text-primary font-bold'
-                    : 'bg-white border border-slate-200 text-slate-500 hover:border-accent hover:text-primary'
+                    : 'bg-white border border-slate-200 text-slate-700 hover:border-accent hover:text-primary'
                 }`}
               >
                 {cat}
@@ -95,7 +95,7 @@ export default function IndustriesPage() {
         {filteredGroups.length === 0 ? (
           <div className="text-center py-20 bg-slate-50 border border-dashed border-slate-200 rounded-2xl">
             <p className="font-heading text-sm text-slate-500 uppercase tracking-widest mb-3">No direct matches found</p>
-            <p className="font-sans text-xs text-slate-450 font-light max-w-sm mx-auto">
+            <p className="font-sans text-xs text-slate-700 max-w-sm mx-auto">
               Our structures can configure custom map profiles for unlisted high-revenue categories. Shoot us an intake brief.
             </p>
           </div>
@@ -125,7 +125,7 @@ export default function IndustriesPage() {
                     {group?.items.map((item, itemIdx) => (
                       <li key={itemIdx} className="flex gap-2.5 items-start">
                         <span className="h-1.5 w-1.5 bg-accent rounded-full shrink-0 mt-2" />
-                        <span className="text-xs text-slate-600 leading-relaxed font-sans font-light">
+                        <span className="text-xs text-slate-800 leading-relaxed font-sans">
                           {item}
                         </span>
                       </li>

@@ -75,7 +75,7 @@ export default function Testimonials() {
                 className="space-y-8 text-center px-4 md:px-12"
               >
                 {/* Clean, gorgeous quoted text without quotation icons */}
-                <p className="font-sans text-base md:text-lg lg:text-xl text-primary leading-relaxed font-light italic max-w-3xl mx-auto">
+                <p className="font-sans text-base md:text-lg lg:text-xl text-primary leading-relaxed italic max-w-3xl mx-auto">
                   "{current.quote}"
                 </p>
 
@@ -93,7 +93,7 @@ export default function Testimonials() {
                     <h4 className="font-heading font-semibold text-xs text-primary uppercase tracking-wider">
                       {current.author}
                     </h4>
-                    <p className="font-sans text-[11px] text-gray-500 uppercase tracking-widest leading-relaxed">
+                    <p className="font-sans text-[11px] text-slate-700 uppercase tracking-widest leading-relaxed">
                       {current.role} &mdash; <strong className="text-accent font-medium">{current.company}</strong>
                     </p>
                   </div>

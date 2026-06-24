@@ -9,54 +9,144 @@ export default function HowItWorksPage() {
   const metaSteps = [
     {
       id: 1,
-      title: 'Pixel & Server API Interlocking',
-      tech: 'META CONVERSIONS API (CAPI)',
-      desc: 'When a buyer clicks your ad, Meta registers browser cookie hashes. If a browser blocks cookies, our custom Server-Side CAPI matches the phone/email hashes directly, securing 100% server tracking.',
-      status: 'Continuous Monitoring Active'
+      title: 'TRACKING SETUP & WEBSITE ANALYSIS',
+      tech: 'STEP 01',
+      desc: (
+        <div className="space-y-3">
+          <p className="text-xs text-slate-800 leading-relaxed">
+            Before running advertisements, we make sure proper tracking is in place. This helps us understand what visitors do after clicking your advertisement.
+          </p>
+          <div className="space-y-1 pl-1">
+            <span className="text-[10px] uppercase font-bold text-slate-600 tracking-wider block">For businesses with websites, we can assist with:</span>
+            <ul className="grid grid-cols-1 sm:grid-cols-2 gap-x-4 gap-y-0.5 text-xs text-slate-700 font-sans list-disc list-inside">
+              <li>Meta Pixel setup</li>
+              <li>Conversions API guidance</li>
+              <li>Lead form tracking</li>
+              <li>Add to cart tracking</li>
+              <li>Purchase tracking</li>
+              <li>WhatsApp click tracking</li>
+            </ul>
+          </div>
+          <p className="text-xs text-slate-800 leading-relaxed">
+            This data helps Meta understand who is genuinely interested in your business and improves campaign performance over time.
+          </p>
+        </div>
+      ),
+      status: 'Tracking Integration'
     },
     {
       id: 2,
-      title: 'Estimated Action Rate Evaluation',
-      tech: 'THE MACHINE LEARNING AUCTION',
-      desc: 'Meta does not sell impressions to the highest bidder. Its auction engine scores your ad based on (Bid Price × Estimated Action Rate + User Experience Value). If we optimize real conversions, Meta rewards us with cheap placement.',
-      status: 'Algorithmic Optimization'
+      title: 'AUDIENCE RESEARCH & TARGETING',
+      tech: 'STEP 02',
+      desc: (
+        <div className="space-y-3">
+          <p className="text-xs text-slate-800 leading-relaxed">
+            Showing advertisements to everyone rarely works. We focus on finding people who are more likely to become customers.
+          </p>
+          <div className="space-y-1 pl-1">
+            <span className="text-[10px] uppercase font-bold text-slate-600 tracking-wider block">Audience research may include:</span>
+            <ul className="grid grid-cols-1 sm:grid-cols-2 gap-x-4 gap-y-0.5 text-xs text-slate-700 font-sans list-disc list-inside">
+              <li>Age groups</li>
+              <li>Locations</li>
+              <li>Occupation</li>
+              <li>Income profile</li>
+              <li>Interests</li>
+              <li>Buying behaviour</li>
+              <li>Lifestyle preferences</li>
+            </ul>
+          </div>
+          <div className="space-y-1 pl-1">
+            <span className="text-[10px] uppercase font-bold text-slate-600 tracking-wider block">We also create:</span>
+            <ul className="grid grid-cols-1 sm:grid-cols-2 gap-x-4 gap-y-0.5 text-xs text-slate-700 font-sans list-disc list-inside">
+              <li>Customer based audiences</li>
+              <li>Similar audiences</li>
+              <li>Retargeting campaigns</li>
+              <li>Instagram engagement audiences</li>
+              <li>Website visitor audiences</li>
+            </ul>
+          </div>
+        </div>
+      ),
+      status: 'Audience Definition'
     },
     {
       id: 3,
-      title: 'Audience Cohort Clustering',
-      tech: 'DEMOGRAPHIC VECTOR MAPPING',
-      desc: 'The algorithm groups millions of profiles into micro-segmented cohorts. By running specialized lookalikes of your primary buyers, we feed the AI machine exact vectors of what your gold-standard customer looks like.',
-      status: 'High Confidence Match'
+      title: 'CREATIVE GUIDANCE',
+      tech: 'STEP 03',
+      desc: (
+        <div className="space-y-3">
+          <p className="text-xs text-slate-800 leading-relaxed">
+            Good creatives are one of the biggest reasons Meta campaigns succeed. Many businesses use photos or videos that do not attract attention. We help clients understand what type of content works best.
+          </p>
+          <div className="space-y-1 pl-1">
+            <span className="text-[10px] uppercase font-bold text-slate-600 tracking-wider block">Suggested creatives include:</span>
+            <ul className="grid grid-cols-1 sm:grid-cols-2 gap-x-4 gap-y-0.5 text-xs text-slate-700 font-sans list-disc list-inside">
+              <li>Product showcase videos</li>
+              <li>Property walkthrough videos</li>
+              <li>Customer testimonial videos</li>
+              <li>Before and after transformations</li>
+              <li>Reel concepts</li>
+              <li>Festival campaign creatives</li>
+              <li>Limited period offers</li>
+              <li>Founder introduction videos</li>
+            </ul>
+          </div>
+          <p className="text-xs text-slate-800 leading-relaxed">
+            The goal is simple: capture attention quickly and encourage customers to take action.
+          </p>
+        </div>
+      ),
+      status: 'Creative Strategy'
     },
     {
       id: 4,
-      title: 'Creative Feed Saturation Match',
-      tech: 'SCROLL-STOPPING VISUAL MATCHING',
-      desc: 'Meta evaluates user retention within the first 2 seconds of exposure. Ads with cinematic visual pacing get prioritized, decreasing overall client acquisition cost.',
-      status: 'Creative Core Priority'
+      title: 'ECOMMERCE GROWTH SUPPORT',
+      tech: 'STEP 04',
+      desc: (
+        <div className="space-y-3">
+          <p className="text-xs text-slate-800 leading-relaxed">
+            For ecommerce businesses, getting orders is only part of the journey. Efficient operations are equally important.
+          </p>
+          <div className="space-y-1 pl-1">
+            <span className="text-[10px] uppercase font-bold text-slate-600 tracking-wider block">Businesses working with Supreme Ads may also receive guidance on:</span>
+            <ul className="grid grid-cols-1 sm:grid-cols-2 gap-x-4 gap-y-0.5 text-xs text-slate-700 font-sans list-disc list-inside">
+              <li>Cash on Delivery confirmation process</li>
+              <li>Reducing fake orders</li>
+              <li>Shipping workflow suggestions</li>
+              <li>Courier partner recommendations</li>
+              <li>Order management practices</li>
+              <li>Customer communication process</li>
+            </ul>
+          </div>
+          <p className="text-xs text-slate-800 leading-relaxed font-medium">
+            This helps ecommerce brands improve customer experience and reduce operational losses.
+          </p>
+        </div>
+      ),
+      status: 'Operations Support'
     }
   ];
 
   const supremeVantages = [
     {
-      title: 'Obsessive Focus on Pure Net Margin',
-      desc: 'Most agencies scream about useless "impressions." We sync with your product profit margins, local delivery costs, and checkout conversion rates to build a campaign that fuels your true net profit first.',
-      metric: 'Profitability Priority'
+      title: 'Ecommerce Operations Support',
+      desc: 'We offer strategic operational advice. We guide your team on order management workflows, RTO reduction, and courier setups to sustain long-term retail growth.',
+      metric: 'Operations Guidance'
     },
     {
-      title: '10x ROAS Systematic Playbook',
-      desc: 'We do not gamble. We deploy high-velocity creative testing matrices across hundreds of variations, tracking which specific hooks hook high-intent buyers, scaling only the premium winners.',
-      metric: '10x Guarantee Focus'
+      title: 'Product Analysis & Competitor Study',
+      desc: 'We analyze your service strengths, pricing, locations, and competitor campaigns before launching to define high-performing customer acquisition pathways.',
+      metric: 'Deep Analysis'
     },
     {
-      title: 'Server CAPI Custom Scripting',
-      desc: 'We bypass iOS tracking limits by building direct private server matching scripts. This provides 30% to 40% cleaner conversion data to Meta, reducing cost-per-lead immediately.',
-      metric: 'Zero Cookie Leakage'
+      title: 'Audience Targeting Guidance',
+      desc: 'We identify customers most likely to purchase by income profile, interests, lifestyle and buying behaviour to maximize overall returns on your ad investment.',
+      metric: 'Audience Targeting'
     },
     {
-      title: 'Rapid Creative Evolution Studio',
-      desc: 'Static image layouts fatigue within 10 days. Our master designers and cinematic copy directors produce constant visual iterations, keeping your active CPA stable for months.',
-      metric: 'Anti-Creative Fatigue'
+      title: 'Growth Consultation Included',
+      desc: 'Onboarding with Supreme Ads includes complimentary strategy sessions on cash-on-delivery workflows, delivery setups, and digital growth practices.',
+      metric: 'Growth Consultation'
     }
   ];
 
@@ -67,7 +157,7 @@ export default function HowItWorksPage() {
         <div className="absolute inset-0 opacity-10 luxury-grid-dark pointer-events-none" />
         <div className="max-w-7xl mx-auto px-6 md:px-12 relative z-10 text-center">
           <span className="text-xs font-heading font-semibold text-accent tracking-[0.25em] uppercase block mb-3">
-            Algorithmic Breakdown &amp; Strategy
+            HOW META ADS WORK
           </span>
           <h1 className="font-heading font-semibold text-4xl sm:text-5xl md:text-6xl uppercase tracking-tighter">
             HOW META ADS <span className="font-serif italic text-accent capitalize">WORK</span>
@@ -80,18 +170,30 @@ export default function HowItWorksPage() {
       <section className="py-24 max-w-7xl mx-auto px-6 md:px-12">
         <div className="text-center max-w-3xl mx-auto space-y-6 mb-16">
           <span className="text-xs font-heading font-semibold text-accent tracking-[0.2em] uppercase block">
-            Systematic Transparency
+            HOW META ADS WORK
           </span>
-          <h2 className="font-heading font-semibold text-2xl md:text-3xl uppercase tracking-tight text-primary">
-            Demystifying the Code Behind <span className="font-serif italic text-accent font-light capitalize">Premium Performance</span>
+          <h2 className="font-heading font-semibold text-2xl md:text-4xl uppercase tracking-tight text-primary leading-tight">
+            How Supreme Ads Helps Businesses Get Better Customers Through Meta Advertising
           </h2>
-          <div className="flex border border-slate-200 rounded-lg overflow-hidden max-w-md mx-auto mt-8 bg-slate-50 shadow-md">
+          <div className="text-slate-800 font-sans text-sm md:text-base leading-relaxed max-w-2xl mx-auto space-y-4 pt-2">
+            <p>
+              Meta Ads on Facebook and Instagram can help businesses reach people who are genuinely interested in their products or services.
+            </p>
+            <p>
+              However, running advertisements without proper research often leads to wasted budget and poor-quality enquiries.
+            </p>
+            <p>
+              At Supreme Ads, we follow a step-by-step process to help businesses attract the right audience, improve lead quality and grow consistently.
+            </p>
+          </div>
+          
+          <div className="flex border border-slate-200 rounded-lg overflow-hidden max-w-md mx-auto mt-10 bg-slate-50 shadow-md">
             <button
               onClick={() => setActiveTab('platform')}
               className={`flex-1 py-4 text-xs font-heading font-semibold tracking-wider uppercase transition-all ${
                 activeTab === 'platform'
                   ? 'bg-primary text-white'
-                  : 'text-slate-500 hover:text-primary bg-white'
+                  : 'text-slate-700 hover:text-primary bg-white'
               }`}
             >
               How Meta Ads Work
@@ -101,7 +203,7 @@ export default function HowItWorksPage() {
               className={`flex-1 py-4 text-xs font-heading font-semibold tracking-wider uppercase transition-all ${
                 activeTab === 'supreme'
                   ? 'bg-primary text-white'
-                  : 'text-slate-500 hover:text-primary bg-white'
+                  : 'text-slate-700 hover:text-primary bg-white'
               }`}
             >
               Why Supreme Wins
@@ -122,9 +224,9 @@ export default function HowItWorksPage() {
               {/* Timeline Flow list column */}
               <div className="lg:col-span-7 space-y-6">
                 <div className="mb-6">
-                  <span className="text-[10px] uppercase font-bold text-accent tracking-widest block">System Diagnostics</span>
+                  <span className="text-[10px] uppercase font-bold text-accent tracking-widest block">Core Process</span>
                   <h3 className="text-xl font-heading font-semibold text-primary uppercase mt-1">
-                    The 4 Pillars of the Meta Algorithm
+                    Our Step-by-Step Meta Methodology
                   </h3>
                 </div>
 
@@ -150,16 +252,16 @@ export default function HowItWorksPage() {
                             0{step.id}
                           </div>
                           
-                          <div className="space-y-2">
+                          <div className="space-y-2 flex-1">
                             <span className="text-[9px] font-mono font-bold text-accent tracking-widest uppercase block">
                               {step.tech}
                             </span>
                             <h4 className="font-heading font-semibold text-sm text-primary uppercase tracking-tight">
                               {step.title}
                             </h4>
-                            <p className="text-xs text-slate-600 font-sans leading-relaxed font-light">
+                            <div className="text-xs text-slate-800 font-sans leading-relaxed">
                               {step.desc}
-                            </p>
+                            </div>
                             
                             <div className="pt-2 flex items-center gap-1.5 text-[9px] font-mono tracking-wider font-semibold text-emerald-600 uppercase">
                               <span className="w-1.5 h-1.5 bg-emerald-500 rounded-full animate-pulse" />
@@ -235,18 +337,18 @@ export default function HowItWorksPage() {
                     Securing Outstanding Outcomes
                   </span>
                   <h3 className="font-heading font-semibold text-3xl uppercase tracking-tighter text-primary leading-tight">
-                    How We Guarantee <br />
-                    <span className="font-serif italic text-accent capitalize">10x ROAS Capabilities</span>
+                    Professional <br />
+                    <span className="font-serif italic text-accent capitalize">Growth Support</span>
                   </h3>
                   <div className="w-12 h-1 bg-accent" />
                 </div>
 
-                <p className="text-slate-600 font-sans text-sm leading-relaxed font-light">
-                  Most agencies set up basic budgets, dump standard stock graphics, and check the dashboard once a month. We operate with structural intensity.
+                <p className="text-slate-800 font-sans text-sm leading-relaxed">
+                  Most agencies set up basic budgets, dump standard stock graphics, and check the dashboard once a month. We operate with structural intensity and clear strategic preparation.
                 </p>
 
-                <p className="text-slate-600 font-sans text-sm leading-relaxed font-light">
-                  We run deep-domain pixel mapping. We write server scripts. We record high-production user reviews. And we manage your ad spend with immediate live analytics reports that pull verified cash sales, not speculative clicks.
+                <p className="text-slate-800 font-sans text-sm leading-relaxed">
+                  We integrate complete pixel configurations, guide creative conceptualization, and manage campaigns dynamically. On top of standard performance tracking, ecommerce clients receive dedicated support on fulfillment, COD verification, and order processing setups.
                 </p>
 
                 <div className="bg-slate-50 p-5 border border-slate-100 rounded-xl flex items-center gap-4">
@@ -254,8 +356,8 @@ export default function HowItWorksPage() {
                     <BarChart className="text-accent" size={18} />
                   </div>
                   <div>
-                    <span className="text-[10px] text-zinc-500 uppercase font-semibold block font-heading">AVERAGE CAMPAIGN ROAS</span>
-                    <span className="text-base font-bold text-primary">10x Scale Target Achieved</span>
+                    <span className="text-[10px] text-zinc-500 uppercase font-semibold block font-heading">E-COMMERCE GROWTH</span>
+                    <span className="text-base font-bold text-primary">Strategic Logistics &amp; COD Support</span>
                   </div>
                 </div>
               </div>
@@ -271,7 +373,7 @@ export default function HowItWorksPage() {
                     <h4 className="font-heading font-bold text-sm text-primary mb-3">
                       {van.title}
                     </h4>
-                    <p className="text-xs text-slate-500 font-sans font-light leading-relaxed">
+                    <p className="text-xs text-slate-700 font-sans leading-relaxed">
                       {van.desc}
                     </p>
                   </div>
@@ -295,7 +397,7 @@ export default function HowItWorksPage() {
                 Is your active ad spend <br />
                 <span className="font-serif italic text-accent capitalize">leaking capital?</span>
               </h2>
-              <p className="text-slate-600 font-sans text-xs md:text-sm leading-relaxed max-w-lg font-light">
+              <p className="text-slate-800 font-sans text-xs md:text-sm leading-relaxed max-w-lg">
                 Check if your contemporary system suffers from algorithmic friction under these standard performance checkpoints. If any of these are unoptimized, your active ROAS drops significantly.
               </p>
             </div>
@@ -335,21 +437,21 @@ export default function HowItWorksPage() {
         <div className="absolute inset-0 opacity-10 luxury-grid-dark pointer-events-none" />
         <div className="max-w-4xl mx-auto px-6 relative z-10 space-y-6">
           <span className="text-xs font-heading font-semibold text-accent tracking-[0.3em] uppercase block">
-            Begin Absolute Scaling
+            SUPREME ADS
           </span>
           <h2 className="font-heading font-semibold text-3xl md:text-4xl uppercase tracking-tighter leading-none">
-            Scale with elite <br />
-            <span className="font-serif italic text-accent capitalize">Ad Architects</span>
+            TURN CLICKS <br />
+            <span className="font-serif italic text-accent capitalize">INTO CUSTOMERS</span>
           </h2>
-          <p className="font-sans text-gray-400 text-xs md:text-sm max-w-md mx-auto leading-relaxed">
-            Get a live visual breakdown of your active pixel health and learn how our 10x ROAS blueprint fits your product.
+          <p className="font-sans text-gray-400 text-xs md:text-sm max-w-xl mx-auto leading-relaxed">
+            Meta Advertising works best when the right audience sees the right message at the right time. At Supreme Ads, we combine audience research, competitor analysis, creative suggestions and campaign optimization to help businesses attract better enquiries and grow with confidence.
           </p>
           <div className="pt-4">
             <a
               href="#contact"
               className="inline-block bg-accent hover:bg-accent-dark text-primary font-heading font-bold text-xs tracking-[0.2em] px-8 py-4 uppercase transition-colors"
             >
-              Book Strategy Audit Now
+              Book Strategy Call
             </a>
           </div>
         </div>

@@ -16,9 +16,9 @@ export default function HomePage({ onNavigate }: HomePageProps) {
       title: 'PRODUCT ANALYSIS',
       description: (
         <div className="space-y-2 text-left">
-          <p className="text-xs text-slate-500 leading-relaxed font-light">Every business is different. We study your product or service in detail.</p>
-          <p className="text-xs text-slate-500 leading-relaxed font-light">We understand pricing, location, strengths, offers and unique selling points.</p>
-          <p className="text-xs text-slate-500 leading-relaxed font-light">This helps us position your business correctly before launching campaigns.</p>
+          <p className="text-xs text-slate-700 leading-relaxed">Every business is different. We study your product or service in detail.</p>
+          <p className="text-xs text-slate-700 leading-relaxed">We understand pricing, location, strengths, offers and unique selling points.</p>
+          <p className="text-xs text-slate-700 leading-relaxed">This helps us position your business correctly before launching campaigns.</p>
         </div>
       )
     },
@@ -26,8 +26,8 @@ export default function HomePage({ onNavigate }: HomePageProps) {
       title: 'AUDIENCE RESEARCH',
       description: (
         <div className="space-y-2 text-left">
-          <p className="text-xs text-slate-500 leading-relaxed font-light font-medium">Finding the right customer is more important than reaching thousands of random people. We identify who is most likely to buy from you:</p>
-          <ul className="text-xs text-slate-500 leading-relaxed font-light list-disc list-inside space-y-0.5 pl-1 font-sans">
+          <p className="text-xs text-slate-700 leading-relaxed font-medium">Finding the right customer is more important than reaching thousands of random people. We identify who is most likely to buy from you:</p>
+          <ul className="text-xs text-slate-700 leading-relaxed list-disc list-inside space-y-0.5 pl-1 font-sans">
             <li>Age group</li>
             <li>Income profile</li>
             <li>Buying behaviour</li>
@@ -43,8 +43,8 @@ export default function HomePage({ onNavigate }: HomePageProps) {
       title: 'MARKET AND COMPETITOR SURVEY',
       description: (
         <div className="space-y-2 text-left">
-          <p className="text-xs text-slate-500 leading-relaxed font-light font-medium">We analyse your competitors and understand what is already working in your industry. Our team studies:</p>
-          <ul className="text-xs text-slate-500 leading-relaxed font-light list-disc list-inside space-y-0.5 pl-1 font-sans">
+          <p className="text-xs text-slate-700 leading-relaxed font-medium">We analyse your competitors and understand what is already working in your industry. Our team studies:</p>
+          <ul className="text-xs text-slate-700 leading-relaxed list-disc list-inside space-y-0.5 pl-1 font-sans">
             <li>Competitor Meta advertisements</li>
             <li>Marketing messages</li>
             <li>Offers</li>
@@ -52,7 +52,7 @@ export default function HomePage({ onNavigate }: HomePageProps) {
             <li>Lead forms</li>
             <li>Customer engagement patterns</li>
           </ul>
-          <p className="text-xs text-slate-500 leading-relaxed font-light">This helps us create campaigns that stand out.</p>
+          <p className="text-xs text-slate-700 leading-relaxed">This helps us create campaigns that stand out.</p>
         </div>
       )
     },
@@ -60,8 +60,8 @@ export default function HomePage({ onNavigate }: HomePageProps) {
       title: 'CREATIVE GUIDANCE',
       description: (
         <div className="space-y-2 text-left">
-          <p className="text-xs text-slate-500 leading-relaxed font-light font-medium">Many businesses struggle because they use the wrong photos or videos. We help you understand what type of content performs best. Suggested services include:</p>
-          <ul className="grid grid-cols-1 sm:grid-cols-2 gap-x-2 gap-y-0.5 text-xs text-slate-500 leading-relaxed font-light list-disc list-inside pl-1 font-sans">
+          <p className="text-xs text-slate-700 leading-relaxed font-medium">Many businesses struggle because they use the wrong photos or videos. We help you understand what type of content performs best. Suggested services include:</p>
+          <ul className="grid grid-cols-1 sm:grid-cols-2 gap-x-2 gap-y-0.5 text-xs text-slate-700 leading-relaxed list-disc list-inside pl-1 font-sans">
             <li>Video shoot concepts</li>
             <li>Property walkthrough ideas</li>
             <li>Product showcase suggestions</li>
@@ -123,7 +123,7 @@ export default function HomePage({ onNavigate }: HomePageProps) {
                 How Supreme <br />
                 <span className="font-serif italic text-accent capitalize">Ads Works</span>
               </h2>
-              <div className="text-slate-600 font-sans text-sm leading-relaxed max-w-sm space-y-4">
+              <div className="text-slate-800 font-sans text-sm leading-relaxed max-w-sm space-y-4">
                 <p>
                   Before spending a single rupee on advertising, we first understand your business, customers and market position.
                 </p>
@@ -179,7 +179,7 @@ export default function HomePage({ onNavigate }: HomePageProps) {
               </h2>
             </div>
             <div className="lg:col-span-7 flex items-end">
-              <div className="text-slate-600 font-sans text-sm md:text-base leading-relaxed max-w-2xl space-y-4">
+              <div className="text-slate-800 font-sans text-sm md:text-base leading-relaxed max-w-2xl space-y-4">
                 <p>
                   Running successful Meta Ads is only one part of ecommerce growth.
                 </p>
@@ -238,7 +238,7 @@ export default function HomePage({ onNavigate }: HomePageProps) {
                   <h3 className="font-heading font-semibold text-base text-primary mb-3">
                     {card.title}
                   </h3>
-                  <p className="text-xs text-slate-500 font-sans font-light leading-relaxed">
+                  <p className="text-xs text-slate-700 font-sans leading-relaxed">
                     {card.desc}
                   </p>
                 </div>
