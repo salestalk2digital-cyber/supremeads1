@@ -14,8 +14,8 @@ export const navigationLinks = [
 ];
 
 export const heroContent = {
-  headline: 'SCALED LEAD GENERATION FOR TRUE SALES GROWTH',
-  subheadline: 'SUPREME ADS is an elite performance agency engineering data-backed Meta structures. We build end-to-end high-intent customer acquisition pipelines to feed your sales force.',
+  headline: 'TURN CLICKS INTO CUSTOMERS',
+  subheadline: 'Supreme Ads helps businesses attract the right customers through audience research, competitor analysis, creative strategy and performance-driven Meta advertising. For ecommerce brands, we also provide guidance on COD workflows, delivery setup and operational best practices to support long-term growth.',
   primaryCta: 'Book Strategy Call',
   secondaryCta: 'Explore Industries',
   backgroundImage: '/images/hero_bg.jpg', // User can replace this at public/images/hero_bg.jpg
@@ -47,44 +47,48 @@ export const metricsData = [
 
 export const whyChooseUs = [
   {
-    title: 'Meta Advertising Specialists',
-    description: 'We do not run generalized print or simple social media posts. We live and breathe the Meta Ads platform, understanding the algorithm to buy inventory at peak capital efficiency.'
+    title: 'Product Analysis Before Advertising',
+    description: 'Every business is different. We study your product or service in detail to understand your pricing, location, strengths, offers and unique selling points before launching any campaigns.'
   },
   {
-    title: 'Creative Testing Framework',
-    description: 'We run a systematic high-velocity testing protocol. We test concepts, angles, hooks, and static vs. cinematic video formats to mathematically define winning creatives.'
+    title: 'Audience Research',
+    description: 'Finding the right customer is more important than reaching random crowds. We identify exactly who is most likely to buy from you based on income profile, age group, buying behaviour, interests, and location.'
   },
   {
-    title: 'Conversion Optimization',
-    description: 'A great ad fails on a poor landing page. We design high-converting, blazing-fast funnels and feedback pipelines to turn fleeting ad clicks into dedicated customer actions.'
+    title: 'Competitor Advertisement Study',
+    description: 'We analyse your competitors and understand what is already working in your industry, studying their advertisements, landing pages, and lead forms to create campaigns that stand out.'
   },
   {
-    title: 'Advanced Audience Research',
-    description: 'We go beyond basic age and country criteria. We perform aggressive psychological profiling, competitor analysis, and custom source mapping to target gold-status buyer groups.'
+    title: 'Creative Suggestions',
+    description: 'We help you understand what type of content performs best, providing guidance on video shoot concepts, walkthroughs, product showcases, reels, and customer testimonial concepts.'
   },
   {
-    title: 'Pixel Tracking & Custom CAPI',
-    description: 'Our proprietary Meta Conversions API (CAPI) and Advanced Matching protocols ensure zero data loss in a post-iOS14 world, allowing the campaign algorithm to learn precisely.'
+    title: 'Meta Campaign Management',
+    description: 'Performance-focused campaigns built with advanced CBO/ABO structures and pixel integration. We optimize your campaigns daily to maximize order volume and lead quality.'
   },
   {
-    title: 'Retargeting Funnels',
-    description: 'We orchestrate multi-touch retargeting sequences. We serve testimonials, objection-handlers, and targeted offers to maximize the value of cold awareness clicks.'
+    title: 'Retargeting Strategies',
+    description: 'We implement systematic retargeting funnels to bring back warm prospects, serving testimonials, objection-handlers, and targeted offers to maximize your conversion rate.'
   },
   {
-    title: 'WhatsApp Lead Automation',
-    description: 'We integrate immediate direct-response WhatsApp automations, instant follow-up triggers, CRM tracking, and booking calendars to capitalize on fresh lead momentum.'
+    title: 'Ecommerce Operations Guidance',
+    description: 'For ecommerce brands, we provide strategic operational support. We guide your team on order management workflows, RTO reduction, and order processing to support long-term growth.'
   },
   {
-    title: 'Campaign Monitoring',
-    description: 'Hourly tracking of key cost vectors, CPM health, CTR degradation, and frequency caps. We prune cold creatives before they eat away your scaling budget.'
+    title: 'COD Workflow Guidance',
+    description: 'We offer suggestions to optimize your cash-on-delivery workflows, order confirmation procedures, and customer validation protocols to reduce fake orders and cancellations.'
+  },
+  {
+    title: 'Delivery Setup Support',
+    description: 'Strategic guidance on shipping configurations, courier partner selection, and fulfillment workflows to streamline your delivery pipeline and improve customer satisfaction.'
   },
   {
     title: 'Transparent Reporting',
-    description: 'No vanity stats. We report on true cost-per-acquisition, total pipeline revenue, true margin ROAS, and net leads in our live-synced client analytics command center.'
+    description: 'No vanity metrics. We report on true cost-per-acquisition, net qualified leads, and actual return on ad spend (ROAS) in our live-synced client analytics command center.'
   },
   {
-    title: 'Dedicated Account Management',
-    description: 'Direct Slack integrations, weekly performance sprints, and monthly strategy retrospectives with certified Meta Ads architects. No junior hand-offs ever.'
+    title: 'Dedicated Support Team',
+    description: 'Direct communication channels, regular performance sprints, and monthly strategy updates with certified Meta Ads strategists. No junior hand-offs ever.'
   }
 ];
 

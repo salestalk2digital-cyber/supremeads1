@@ -1,18 +1,31 @@
 import { whyChooseUs } from '../data';
 import { motion } from 'motion/react';
-import { Target, Lightbulb, TrendingUp, Search, Eye, Filter, MessageSquare, ShieldAlert, FileText, UserCheck } from 'lucide-react';
+import { 
+  Search, 
+  Target, 
+  Eye, 
+  Lightbulb, 
+  Layers, 
+  Filter, 
+  Box, 
+  ShieldCheck, 
+  Truck, 
+  FileText, 
+  UserCheck 
+} from 'lucide-react';
 
 const icons = [
-  Target,       // Meta Specialists
-  Lightbulb,    // Creative testing
-  TrendingUp,   // Conversion Optimization
-  Search,       // Audience research
-  Eye,          // Pixel tracking
-  Filter,       // Retargeting
-  MessageSquare,// WhatsApp Automation
-  ShieldAlert,  // Campaign Monitoring
+  Search,       // Product Analysis Before Advertising
+  Target,       // Audience Research
+  Eye,          // Competitor Advertisement Study
+  Lightbulb,    // Creative Suggestions
+  Layers,       // Meta Campaign Management
+  Filter,       // Retargeting Strategies
+  Box,          // Ecommerce Operations Guidance
+  ShieldCheck,  // COD Workflow Guidance
+  Truck,        // Delivery Setup Support
   FileText,     // Transparent Reporting
-  UserCheck     // Dedicated Account Management
+  UserCheck     // Dedicated Support Team
 ];
 
 export default function WhySupreme() {

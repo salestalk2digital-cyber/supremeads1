@@ -35,7 +35,7 @@ export default function ClientMarquee() {
             return (
               <div
                 key={`${client.id}-${cIdx}`}
-                className="flex items-center justify-center h-20 px-8 transition-all duration-300 filter grayscale contrast-125 opacity-40 hover:opacity-100 hover:filter-none shrink-0"
+                className="flex items-center justify-center h-20 px-8 transition-all duration-300 shrink-0 hover:scale-105"
               >
                 {hasError ? (
                   // Custom ultra-high-end monogram credit block if image doesn't exist yet
