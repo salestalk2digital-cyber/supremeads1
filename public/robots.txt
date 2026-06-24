@@ -1,0 +1,11 @@
+# www.robotstxt.org/
+# Supreme Ads SEO Crawler Directives
+
+User-agent: *
+Allow: /
+Disallow: /admin
+Disallow: /admin/
+Disallow: /api/
+
+# Sitemap location
+Sitemap: https://www.instagram.com/supremeadvertisements/sitemap.xml

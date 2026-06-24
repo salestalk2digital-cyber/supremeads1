@@ -1,5 +1,5 @@
 import ContactForm from '../components/ContactForm';
-import { Mail, Phone, MapPin, Compass, Briefcase, Share2 } from 'lucide-react';
+import { Mail, Phone, Compass, Instagram } from 'lucide-react';
 
 export default function ContactPage() {
   const supports = [
@@ -7,13 +7,22 @@ export default function ContactPage() {
       icon: <Mail size={18} className="text-accent" />,
       title: 'Strategic Briefs',
       desc: 'Send digital mapping decks directly to our account engineers.',
-      action: 'performance@supremeads.agency'
+      action: 'performance@supremeads.agency',
+      href: 'mailto:performance@supremeads.agency'
     },
     {
       icon: <Phone size={18} className="text-accent" />,
       title: 'Enterprise Hotline',
       desc: 'Instant direct interface for budgets reaching ₹5 Lakhs+ Monthly spend.',
-      action: '+1 (800) 555-3920'
+      action: '+1 (800) 555-3920',
+      href: 'tel:+18005553920'
+    },
+    {
+      icon: <Instagram size={18} className="text-accent" />,
+      title: 'Instagram Handle',
+      desc: 'Inspect live ad campaigns and creative masterwork break-downs.',
+      action: '@supremeadvertisements',
+      href: 'https://www.instagram.com/supremeadvertisements/'
     },
     {
       icon: <Compass size={18} className="text-accent" />,
@@ -55,23 +64,45 @@ export default function ContactPage() {
             <div className="w-12 h-0.5 bg-accent mx-auto" />
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {supports.map((sup, idx) => (
-              <div key={idx} className="bg-white p-8 border border-slate-100 rounded-xl shadow-md text-center space-y-4 hover:border-accent/40 transition-colors duration-300">
-                <div className="w-10 h-10 rounded-full bg-accent/5 text-accent flex items-center justify-center mx-auto">
-                  {sup.icon}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+            {supports.map((sup, idx) => {
+              const CardContent = (
+                <>
+                  <div className="w-10 h-10 rounded-full bg-accent/5 text-accent flex items-center justify-center mx-auto group-hover:bg-accent/10 transition-colors">
+                    {sup.icon}
+                  </div>
+                  <h3 className="font-heading font-semibold text-sm text-primary uppercase">
+                    {sup.title}
+                  </h3>
+                  <p className="text-xs text-slate-500 font-sans font-light leading-relaxed max-w-xs mx-auto">
+                    {sup.desc}
+                  </p>
+                  <div className="pt-2 font-semibold font-mono text-xs text-primary group-hover:text-accent transition-colors">
+                    {sup.action}
+                  </div>
+                </>
+              );
+
+              if (sup.href) {
+                return (
+                  <a
+                    key={idx}
+                    href={sup.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="bg-white p-8 border border-slate-100 rounded-xl shadow-md text-center space-y-4 hover:border-accent/40 hover:shadow-lg transition-all duration-300 block group"
+                  >
+                    {CardContent}
+                  </a>
+                );
+              }
+
+              return (
+                <div key={idx} className="bg-white p-8 border border-slate-100 rounded-xl shadow-md text-center space-y-4 hover:border-accent/40 hover:shadow-lg transition-all duration-300 group">
+                  {CardContent}
                 </div>
-                <h3 className="font-heading font-semibold text-sm text-primary uppercase">
-                  {sup.title}
-                </h3>
-                <p className="text-xs text-slate-500 font-sans font-light leading-relaxed max-w-xs mx-auto">
-                  {sup.desc}
-                </p>
-                <div className="pt-2 font-semibold font-mono text-xs text-primary">
-                  {sup.action}
-                </div>
-              </div>
-            ))}
+              );
+            })}
           </div>
         </div>
       </section>

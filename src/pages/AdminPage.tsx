@@ -19,19 +19,10 @@ export default function AdminPage() {
     testimonials, upsertTestimonial, removeTestimonial
   } = useCMS();
 
-  // Guard passcode & WhatsApp OTP
+  // Guard passcode
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [passcode, setPasscode] = useState('');
   const [errorMsg, setErrorMsg] = useState('');
-
-  // WhatsApp OTP Authentication State
-  const [phoneNumber, setPhoneNumber] = useState('919667173693'); // Pre-fill target (Aman's direct WA)
-  const [otpSent, setOtpSent] = useState(false);
-  const [generatedOtp, setGeneratedOtp] = useState('');
-  const [enteredOtp, setEnteredOtp] = useState('');
-  const [otpLoading, setOtpLoading] = useState(false);
-  const [cooldown, setCooldown] = useState(0);
-  const [authMethod, setAuthMethod] = useState<'otp' | 'passcode'>('otp'); // Default to OTP for modern security
   
   const [activeTab, setActiveTab] = useState<AdminTab>('leads');
   const [enquiries, setEnquiries] = useState<Enquiry[]>([]);
@@ -89,62 +80,7 @@ export default function AdminPage() {
     image: ''
   });
 
-  const ADMIN_PASSCODE = '9667173693'; // Aman's pre-authorized admin code (WhatsApp)
-
-  // Countdown timer for resending OTP
-  useEffect(() => {
-    if (cooldown > 0) {
-      const timer = setTimeout(() => setCooldown((prev) => prev - 1), 1000);
-      return () => clearTimeout(timer);
-    }
-  }, [cooldown]);
-
-  const handleRequestOtp = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!phoneNumber.trim()) {
-      setErrorMsg('Please enter a valid WhatsApp phone number.');
-      return;
-    }
-
-    setOtpLoading(true);
-    setErrorMsg('');
-
-    // Generate a secure 6-digit random code
-    const code = Math.floor(100000 + Math.random() * 900000).toString();
-    setGeneratedOtp(code);
-
-    // Prepare WhatsApp Message configuration
-    const messageText = `[Supreme Ads Verification] Your secure Admin Console Login OTP is: ${code}. Valid for 10 minutes.`;
-    const cleanPhone = phoneNumber.replace(/[^0-9]/g, '');
-    const whatsappUrl = `https://wa.me/${cleanPhone}?text=${encodeURIComponent(messageText)}`;
-
-    setTimeout(() => {
-      setOtpSent(true);
-      setOtpLoading(false);
-      setCooldown(60); // 60s cooldown limit
-      
-      // Open click-to-dispatch in a new page/tab
-      window.open(whatsappUrl, '_blank');
-    }, 800);
-  };
-
-  const handleVerifyOtp = (e: React.FormEvent) => {
-    e.preventDefault();
-    setErrorMsg('');
-
-    if (!enteredOtp.trim()) {
-      setErrorMsg('Please enter the 6-digit OTP code.');
-      return;
-    }
-
-    // Match OTP dynamically OR allow existing ADMIN_PASSCODE as a master-override
-    if (enteredOtp === generatedOtp || enteredOtp === '966717') {
-      setIsAuthenticated(true);
-      fetchLeads();
-    } else {
-      setErrorMsg('Invalid verification OTP code. Please review and try again.');
-    }
-  };
+  const ADMIN_PASSCODE = 'Aman@2427';
 
   const handleAuthSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -349,186 +285,55 @@ export default function AdminPage() {
 
       {!isAuthenticated ? (
         <section className="py-24 max-w-md mx-auto px-6">
-          <div className="bg-white p-8 rounded-2xl border border-slate-200/60 shadow-2xl space-y-6">
-            <div className="text-center space-y-2">
-              <div className="w-12 h-12 bg-emerald-500/10 border border-emerald-500/20 text-emerald-600 rounded-full flex items-center justify-center mx-auto mb-4">
-                <Lock size={20} />
+          <div className="bg-white p-8 md:p-10 rounded-2xl border border-slate-150 shadow-2xl space-y-8 relative overflow-hidden">
+            {/* Absolute accent ornament subtle grid line */}
+            <div className="absolute top-0 inset-x-0 h-1.5 bg-accent" />
+            
+            <div className="text-center space-y-3">
+              <div className="w-14 h-14 bg-accent/10 border border-accent/20 text-accent rounded-full flex items-center justify-center mx-auto mb-2 animate-pulse">
+                <Lock size={22} className="stroke-[1.5px]" />
               </div>
-              <h3 className="font-heading font-semibold text-lg uppercase tracking-tight text-primary">
-                Aman&apos;s Verification
+              <h3 className="font-heading font-semibold text-lg uppercase tracking-[0.15em] text-primary">
+                Aman&apos;s Command Desk
               </h3>
-              <p className="text-xs text-slate-500 font-sans leading-relaxed">
-                Provide secure credentials or dynamic WhatsApp OTP to access Supreme Ads CRM &amp; Command deck.
+              <p className="text-xs text-slate-400 font-sans leading-relaxed">
+                Provide secure administrative credentials to retrieve real-time lead rosters, update page copies and adjust pixel proofs.
               </p>
             </div>
 
-            {/* Seamless Toggle Tab Choice */}
-            <div className="flex bg-slate-100 p-1 rounded-lg">
-              <button
-                type="button"
-                onClick={() => {
-                  setAuthMethod('otp');
-                  setErrorMsg('');
-                }}
-                className={`flex-1 text-center py-2 text-xs font-heading font-semibold uppercase tracking-wider rounded-md transition-all ${
-                  authMethod === 'otp'
-                    ? 'bg-white text-emerald-600 shadow-sm'
-                    : 'text-slate-500 hover:text-slate-900'
-                }`}
-              >
-                WhatsApp OTP
-              </button>
-              <button
-                type="button"
-                onClick={() => {
-                  setAuthMethod('passcode');
-                  setErrorMsg('');
-                }}
-                className={`flex-1 text-center py-2 text-xs font-heading font-semibold uppercase tracking-wider rounded-md transition-all ${
-                  authMethod === 'passcode'
-                    ? 'bg-white text-primary shadow-sm'
-                    : 'text-slate-500 hover:text-slate-900'
-                }`}
-              >
-                Passcode Override
-              </button>
-            </div>
-
-            {authMethod === 'otp' ? (
-              <div className="space-y-4">
-                {!otpSent ? (
-                  <form onSubmit={handleRequestOtp} className="space-y-4">
-                    <div className="space-y-1.5">
-                      <label className="text-[10px] font-heading font-semibold text-gray-400 uppercase tracking-widest block">
-                        WhatsApp Number
-                      </label>
-                      <input
-                        type="text"
-                        placeholder="e.g. 919667173693"
-                        value={phoneNumber}
-                        onChange={(e) => {
-                          setPhoneNumber(e.target.value);
-                          setErrorMsg('');
-                        }}
-                        className="w-full px-4 py-3 border border-gray-200 outline-none rounded-lg text-xs font-sans tracking-wide focus:border-emerald-500 text-primary font-semibold"
-                        required
-                      />
-                      <span className="text-[9px] text-slate-400 leading-normal block">
-                        Pre-filled with Aman&apos;s direct WhatsApp key. Change if required.
-                      </span>
-                    </div>
-
-                    {errorMsg && (
-                      <p className="text-[10px] text-rose-500 font-sans">{errorMsg}</p>
-                    )}
-
-                    <button
-                      type="submit"
-                      disabled={otpLoading}
-                      className="w-full bg-emerald-600 hover:bg-emerald-700 disabled:opacity-75 text-white font-heading font-bold text-xs tracking-widest py-3.5 uppercase transition-all duration-300 shadow-md flex items-center justify-center gap-2 cursor-pointer"
-                    >
-                      {otpLoading ? (
-                        <>
-                          <div className="w-4 h-4 border-2 border-white border-b-transparent rounded-full animate-spin" />
-                          Generating...
-                        </>
-                      ) : (
-                        <>
-                          Request OTP on WhatsApp
-                        </>
-                      )}
-                    </button>
-                  </form>
-                ) : (
-                  <form onSubmit={handleVerifyOtp} className="space-y-4">
-                    <div className="space-y-1.5">
-                      <label className="text-[10px] font-heading font-semibold text-gray-400 uppercase tracking-widest block">
-                        6-Digit WhatsApp OTP
-                      </label>
-                      <input
-                        type="text"
-                        placeholder="Enter 6-digit OTP..."
-                        maxLength={6}
-                        value={enteredOtp}
-                        onChange={(e) => {
-                          setEnteredOtp(e.target.value);
-                          setErrorMsg('');
-                        }}
-                        className="w-full px-4 py-3 border border-gray-200 outline-none rounded-lg text-center text-lg tracking-[0.4em] font-mono focus:border-emerald-500 text-slate-800"
-                        required
-                      />
-                    </div>
-
-                    <div className="p-3 bg-emerald-50 border border-emerald-150 rounded-lg space-y-1">
-                      <span className="text-[9px] font-heading font-bold text-emerald-800 uppercase block tracking-wider">
-                        Testing Helper Tool (Instant Access)
-                      </span>
-                      <p className="text-[9px] text-emerald-700 leading-relaxed font-sans">
-                        Generated OTP is: <span className="font-mono font-bold bg-white px-1.5 py-0.5 rounded border border-emerald-200 text-emerald-800">{generatedOtp}</span>. Copy and enter above, or send via the opened WhatsApp window.
-                      </p>
-                    </div>
-
-                    {errorMsg && (
-                      <p className="text-[10px] text-rose-500 font-sans">{errorMsg}</p>
-                    )}
-
-                    <button
-                      type="submit"
-                      className="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-heading font-bold text-xs tracking-widest py-3.5 uppercase transition-all duration-300 shadow-md cursor-pointer"
-                    >
-                      Verify &amp; Enter Command Desk
-                    </button>
-
-                    <div className="text-center pt-2">
-                      {cooldown > 0 ? (
-                        <span className="text-[10px] text-slate-400 font-sans">
-                          Resend OTP in <span className="font-semibold font-mono">{cooldown}s</span>
-                        </span>
-                      ) : (
-                        <button
-                          type="button"
-                          onClick={handleRequestOtp}
-                          className="text-[10px] text-emerald-600 hover:underline font-heading font-bold uppercase tracking-wider"
-                        >
-                          Resend Code via WhatsApp
-                        </button>
-                      )}
-                    </div>
-                  </form>
-                )}
+            <form onSubmit={handleAuthSubmit} className="space-y-6">
+              <div className="space-y-2">
+                <label className="text-[10px] font-heading font-bold text-slate-400 uppercase tracking-widest block">
+                  Admin Passcode
+                </label>
+                <input
+                  type="password"
+                  placeholder="Enter passcode..."
+                  value={passcode}
+                  onChange={(e) => {
+                    setPasscode(e.target.value);
+                    setErrorMsg('');
+                  }}
+                  className="w-full px-5 py-3.5 border border-slate-200 outline-none rounded-xl text-center text-sm font-sans tracking-wider focus:border-accent focus:ring-1 focus:ring-accent/30 bg-slate-50/50 transition-all duration-300 text-primary font-semibold"
+                  required
+                />
               </div>
-            ) : (
-              <form onSubmit={handleAuthSubmit} className="space-y-4">
-                <div className="space-y-1.5">
-                  <label className="text-[10px] font-heading font-semibold text-gray-400 uppercase tracking-widest block">
-                    Admin Passcode
-                  </label>
-                  <input
-                    type="password"
-                    placeholder="Enter passcode..."
-                    value={passcode}
-                    onChange={(e) => {
-                      setPasscode(e.target.value);
-                      setErrorMsg('');
-                    }}
-                    className="w-full px-4 py-3 border border-gray-200 outline-none rounded-lg text-xs font-sans focus:border-accent"
-                  />
-                </div>
 
-                {errorMsg && (
-                  <p className="text-[10px] text-rose-500 font-sans">
+              {errorMsg && (
+                <div className="p-3 bg-red-50 border border-red-100 rounded-lg">
+                  <p className="text-center text-[10px] text-red-600 font-sans tracking-wide font-medium">
                     {errorMsg}
                   </p>
-                )}
+                </div>
+              )}
 
-                <button
-                  type="submit"
-                  className="w-full bg-accent hover:bg-accent-dark text-primary font-heading font-bold text-xs tracking-widest py-3.5 uppercase transition-all duration-300 shadow-md cursor-pointer"
-                >
-                  Access Commands
-                </button>
-              </form>
-            )}
+              <button
+                type="submit"
+                className="w-full bg-primary hover:bg-slate-900 text-white font-heading font-bold text-xs tracking-[0.2em] py-4 uppercase transition-all duration-300 shadow-lg cursor-pointer flex items-center justify-center gap-2 border border-primary/20 rounded-xl"
+              >
+                <span>Authorize Access</span>
+              </button>
+            </form>
           </div>
         </section>
       ) : (

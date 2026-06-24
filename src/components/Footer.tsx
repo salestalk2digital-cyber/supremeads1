@@ -1,5 +1,5 @@
 import { navigationLinks } from '../data';
-import { Mail, Phone, MapPin, ArrowUp, ArrowUpRight } from 'lucide-react';
+import { Mail, Phone, MapPin, ArrowUp, ArrowUpRight, Instagram } from 'lucide-react';
 
 interface FooterProps {
   onLinkClick: (href: string) => void;
@@ -26,8 +26,17 @@ export default function Footer({ onLinkClick }: FooterProps) {
             <p className="text-gray-400 text-sm leading-relaxed max-w-md">
               A bespoke performance advertising company engineering data-backed Meta structures. We build end-to-end customer acquisition engines for premium brands, driving true margin scale rather than hollow reach metrics.
             </p>
-            <div className="flex items-center space-x-4">
+            <div className="flex flex-col sm:flex-row sm:items-center gap-4 sm:gap-6 pt-2">
               <span className="text-xs tracking-widest text-[#C89B3C] font-semibold uppercase">META PLATINUM ARCHITECTS</span>
+              <a
+                href="https://www.instagram.com/supremeadvertisements/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 text-xs text-slate-300 hover:text-pink-500 hover:border-pink-500/30 transition-all duration-300 font-medium tracking-wide group"
+              >
+                <Instagram size={14} className="text-[#C89B3C] group-hover:text-pink-500 shrink-0 transition-colors duration-350" />
+                <span className="hover:underline">@supremeadvertisements</span>
+              </a>
             </div>
           </div>
 

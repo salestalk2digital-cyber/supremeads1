@@ -12,6 +12,7 @@ import WhatsAppButton from './components/WhatsAppButton';
 import HomePage from './pages/HomePage';
 import AboutPage from './pages/AboutPage';
 import HowItWorksPage from './pages/HowItWorksPage';
+import StrategyPage from './pages/StrategyPage';
 import ServicesPage from './pages/ServicesPage';
 import IndustriesPage from './pages/IndustriesPage';
 import CaseStudiesPage from './pages/CaseStudiesPage';
@@ -68,6 +69,8 @@ function AppContent() {
         return <AboutPage />;
       case '#how-it-works':
         return <HowItWorksPage />;
+      case '#strategy':
+        return <StrategyPage />;
       case '#services':
         return <ServicesPage />;
       case '#industries':

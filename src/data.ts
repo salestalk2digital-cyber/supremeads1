@@ -4,6 +4,7 @@ export const navigationLinks = [
   { label: 'Home', href: '#home' },
   { label: 'About', href: '#about' },
   { label: 'How Meta Ads Work', href: '#how-it-works' },
+  { label: 'Strategy Planner', href: '#strategy' },
   { label: 'Services', href: '#services' },
   { label: 'Industries', href: '#industries' },
   { label: 'Case Studies', href: '#case-studies' },
@@ -13,8 +14,8 @@ export const navigationLinks = [
 ];
 
 export const heroContent = {
-  headline: 'TURN CLICKS INTO CUSTOMERS',
-  subheadline: 'SUPREME ADS develops bespoke Meta advertising systems designed to deliver 10x ROAS with absolute margin precision.',
+  headline: 'SCALED LEAD GENERATION FOR TRUE SALES GROWTH',
+  subheadline: 'SUPREME ADS is an elite performance agency engineering data-backed Meta structures. We build end-to-end high-intent customer acquisition pipelines to feed your sales force.',
   primaryCta: 'Book Strategy Call',
   secondaryCta: 'Explore Industries',
   backgroundImage: '/images/hero_bg.jpg', // User can replace this at public/images/hero_bg.jpg
@@ -23,12 +24,12 @@ export const heroContent = {
 
 export const metricsData = [
   {
-    value: '₹120 Crore+',
-    label: 'Managed Ad Spend',
+    value: '₹1 Cr+',
+    label: 'Manage Ad Spends',
     description: 'Directly deployed across Meta-owned networks with extreme margin efficiency in Indian & global sectors.'
   },
   {
-    value: '840+',
+    value: '100+',
     label: 'Campaigns Delivered',
     description: 'Engineered from initial creative concept to scaled final customer acquisition.'
   },
