@@ -263,57 +263,75 @@ export const industryGroups: IndustryGroup[] = [
 export const caseStudies: CaseStudy[] = [
   {
     id: 'cs1',
-    industry: 'Real Estate Developer',
-    title: 'Acquiring Verified High-Net-Worth Residential Leads',
-    campaignObjective: 'Qualified Lead Generation for Luxury Penthouses',
-    adSpend: '₹20,00,000',
-    qualifiedLeads: '512 (HNW buyers)',
-    costPerLead: '₹3,900',
-    roas: '10.8x (Attributed)',
-    challenge: 'Targeting true high-net-worth buyers in an overcrowded urban market without wasting budget on speculative clickers.',
-    solution: 'Designed and deployed a multi-stage Meta Ads funnel syncing custom demographic overlays with zero-friction direct lead forms and CRM checks.',
+    industry: 'Real Estate',
+    title: 'Acquiring Qualified Real Estate Buyers with 1 Lakh Campaign Spend',
+    campaignObjective: 'High-Intent Leads & Site Visits for Premium Properties',
+    adSpend: '₹1,00,000 (1 Lakh)',
+    qualifiedLeads: '450 Leads',
+    costPerLead: '₹222',
+    roas: '70+ Site Visits Verified',
+    challenge: 'Generating highly responsive buyers who actually convert to physical site visits instead of casual browser clicks.',
+    solution: 'Engineered highly local and micro-targeted custom audiences coupled with a strict two-step telephone verification and instant WhatsApp scheduling.',
     results: [
-      '512 verified leads with verified asset size and active mobile numbers',
-      '₹20 Lakhs total budget parsed, securing ₹2.16 Crore+ in immediate booking sales',
-      'Overall cost per call booked reduced by 41% against past digital benchmarks'
+      '450 raw lead contacts generated at a highly optimized CPL',
+      '150 to 170 highly qualified potential leads filtered via validation',
+      '70+ physical site visits executed by verified prospects'
     ],
-    image: '/case-studies/real_estate.jpg' // Fallback handled gracefully in UI
+    image: '/case-studies/real_estate.jpg'
   },
   {
     id: 'cs2',
-    industry: 'Luxury Fragrance Brand',
-    title: 'Scaling Gold-Standard Attar Sales Online',
-    campaignObjective: 'Direct Purchase Conversion Scaling',
-    adSpend: '₹14,20,000',
-    qualifiedLeads: 'N/A (6,420 direct orders)',
-    costPerLead: 'N/A (Average CAC: ₹221)',
-    roas: '10.1x',
-    challenge: 'Dribbling through severe direct-response competition while maintaining the high-margin, elite luxury cachet of premium French/Arabic fragrance collections.',
-    solution: 'Engineered a creative-led approach focusing on premium close-up videos, atmospheric reviews, and custom mobile checkout funnels designed to convert on first screen.',
+    industry: 'High Class Event Management',
+    title: 'Scaling Premium Event Bookings on a 50K Monthly Budget',
+    campaignObjective: 'Lead Generation and Direct Booking Conversions',
+    adSpend: '₹50,000 (50K)',
+    qualifiedLeads: '350 Leads',
+    costPerLead: '₹142',
+    roas: '25x ROAS Minimum',
+    challenge: 'Acquiring high-budget hosts for upscale social gatherings, weddings, and premium corporate galas under strict local filters.',
+    solution: 'Deployed cinematic short-form video walk-throughs of actual premium events paired with custom lead forms that capture event size and guest counts.',
     results: [
-      '6,420 verified luxury-tier purchases with zero brand erosion',
-      'Increased repeat customer buying rate by 24% via custom post-purchase retargeting',
-      'Maintained stable top-of-funnel ROAS close to 10.1x during premium sales events'
+      '350 premium booking leads generated in a single month',
+      'Stable, validated conversion pipeline ensuring qualified enquiries',
+      'Delivered 25x minimum return on advertising spend (ROAS) directly attributed'
     ],
     image: '/case-studies/perfume.jpg'
   },
   {
     id: 'cs3',
-    industry: 'Luxury Automobile detailing',
-    title: 'Monopolizing High-Ticket Ceramic Coating Bookings',
-    campaignObjective: 'Instant Booking & High-Intent Calling Campaigns',
-    adSpend: '₹6,80,000',
-    qualifiedLeads: '184 Premium Bookings',
-    costPerLead: '₹3,690',
-    roas: '10.2x',
-    challenge: 'A localized service area requiring high average order value (₹1,20,000+) ceramic coating and interior detailing bookings.',
-    solution: 'Deployed a WhatsApp Direct routing structure coupled with crisp, high-definition before/after cinematic videos showcasing paint correction results.',
+    industry: 'Private Theater',
+    title: 'Generating 3,000 Monthly Leads & 300+ Bookings for Private Cinema',
+    campaignObjective: 'High-Volume Ticket Sales & Group Bookings',
+    adSpend: '₹75,000 (75K)',
+    qualifiedLeads: '3,000 Leads',
+    costPerLead: '₹25',
+    roas: '15x+ ROAS',
+    challenge: 'Filling weekday and weekend slots for high-end boutique private theater reservations with predictable booking velocity.',
+    solution: 'Engineered an automated WhatsApp chatbot funnel triggered directly from Meta scroll-stopping video ads, allowing instant bookings.',
     results: [
-      '184 ceramic coating applications booked and executed in 60 days',
-      'Boosted direct WhatsApp conversation-to-booking rate to 38%',
-      'Acquired prime high-value audience profiles that unlocked ₹68,00,000+ in revenue'
+      '3,000 highly engaged leads captured in a single month',
+      '300+ guaranteed minimum bookings verified and reserved',
+      'Maximized weekly theater occupancy rate to a record 94%'
     ],
     image: 'https://images.unsplash.com/photo-1619642751034-765dfdf7c58e?auto=format&fit=crop&q=80&w=800'
+  },
+  {
+    id: 'cs4',
+    industry: 'Lady Boutique',
+    title: 'Boosting High-End Fashion Sales to 1.5 Lakhs on a 20k Budget',
+    campaignObjective: 'Direct Fashion Purchase & Catalog Sales',
+    adSpend: '₹20,000 (20K)',
+    qualifiedLeads: 'N/A (Direct Sales)',
+    costPerLead: 'N/A',
+    roas: '7.5x ROAS Minimum',
+    challenge: 'Scaling catalog purchases for high-margin, boutique lady wear and customized apparel on a minimal starting spend.',
+    solution: 'Configured Carousel Ads showcasing detailed fabric premium textures combined with retargeting custom lookalike fashion audiences.',
+    results: [
+      'Delivered ₹1,50,000 (1.5 Lakh) minimum monthly sales',
+      'Achieved an outstanding 7.5x minimum Return on Ad Spend (ROAS)',
+      'Secured high recurring buyer rate of 34% within the same month'
+    ],
+    image: 'https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&q=80&w=600'
   }
 ];
 

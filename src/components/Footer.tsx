@@ -67,7 +67,7 @@ export default function Footer({ onLinkClick }: FooterProps) {
               <li className="flex items-start space-x-3">
                 <MapPin size={16} className="text-accent mt-0.5 shrink-0" />
                 <span className="text-gray-300 leading-relaxed">
-                  Suite 920, Premium Capital Towers, Elite Business Park, Dubai, UAE
+                  Suite 402, Capital Chambers, Connaught Place, New Delhi, 110001, India
                 </span>
               </li>
               <li className="flex items-center space-x-3">

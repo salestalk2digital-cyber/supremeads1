@@ -333,7 +333,7 @@ export default function ContactForm() {
                   <div>
                     <h4 className="text-xs font-heading font-semibold uppercase tracking-wider text-primary">HQ Address</h4>
                     <p className="text-xs text-gray-500 leading-relaxed font-light mt-1">
-                      Suite 920, Premium Capital Towers, Dubai, UAE
+                      Suite 402, Capital Chambers, Connaught Place, New Delhi, 110001, India
                     </p>
                   </div>
                 </li>
@@ -366,7 +366,7 @@ export default function ContactForm() {
             <div className="w-full h-64 md:h-72 border border-gray-200 shadow-lg rounded-xl overflow-hidden relative">
               <iframe
                 title="Supreme Ads Corporate HQ"
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d115456.91501729853!2d55.20163339355469!3d25.197197!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3e5f43348a685555%3A0x3f0a71f00885a06e!2sDubai%20Downtown!5e0!3m2!1sen!2sae!4v1655000000000!5m2!1sen!2sae"
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d14008.204642944728!2d77.21175659247656!3d28.631248064436577!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390cfd37b69d51e3%3A0x7de6ecdfb3ca5fa!2sConnaught%20Place%2C%20New%20Delhi%2C%20Delhi%20110001!5e0!3m2!1sen!2sin!4v1655000000000!5m2!1sen!2sin"
                 width="100%"
                 height="100%"
                 style={{ border: 0 }}

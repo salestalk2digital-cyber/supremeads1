@@ -22,38 +22,23 @@ interface StrategyState {
   businessCategory: string;
   orderValue: string;
   adSpend: string;
+  targetCpl: string;
   salesObjective: string;
   targetAvatar: string;
 }
 
 export default function StrategyPage() {
   const [formData, setFormData] = useState<StrategyState>({
-    businessCategory: 'Real Estate & Premium Properties',
+    businessCategory: 'Real Estate',
     orderValue: '',
-    adSpend: '₹50,000 - ₹1,50,000',
+    adSpend: '100000',
+    targetCpl: '250',
     salesObjective: 'Generate Verified Phone Contacts',
     targetAvatar: '',
   });
 
   const [blueprint, setBlueprint] = useState<any | null>(null);
   const [isGenerating, setIsGenerating] = useState(false);
-
-  const businessCategories = [
-    'Real Estate & Premium Properties',
-    'Luxury Weddings & Visual Celebrations',
-    'Premium Corporate Services & B2B',
-    'High-Ticket Coaching, Consulting & EdTech',
-    'Physical Retail, Clinics & Lifestyle Centers',
-    'High-End Fashion & Custom Brand E-commerce'
-  ];
-
-  const expenditureTiers = [
-    '₹25,000 - ₹50,000',
-    '₹50,000 - ₹1,50,000',
-    '₹1,50,000 - ₹5,00,000',
-    '₹5,00,000 - ₹15,00,000',
-    '₹15,00,000+'
-  ];
 
   const primaryObjectives = [
     { value: 'Generate Verified Phone Contacts', label: 'Verified Phone Contacts (Fastest follow-up)' },
@@ -67,48 +52,45 @@ export default function StrategyPage() {
     setFormData(prev => ({ ...prev, [name]: value }));
   };
 
-  const handleCategorySelect = (category: string) => {
-    setFormData(prev => ({ ...prev, businessCategory: category }));
-  };
-
   const generateStrategy = (e: React.FormEvent) => {
     e.preventDefault();
     setIsGenerating(true);
 
     setTimeout(() => {
-      // Analytical calculations based on ad spend and category
-      let estimatedCPLRange = '₹180 - ₹280';
-      let expectedMonthlyLeads = '250 - 400';
+      // Parse adSpend and targetCpl safely with absolutely no caps, mins, or maxes
+      const parsedSpend = parseFloat(formData.adSpend.replace(/[^0-9.]/g, '')) || 50000;
+      const parsedCpl = parseFloat(formData.targetCpl.replace(/[^0-9.]/g, '')) || 250;
+      
+      const expectedLeadsCount = Math.round(parsedSpend / parsedCpl);
+      const minLeads = Math.max(1, Math.round(expectedLeadsCount * 0.85));
+      const maxLeads = Math.max(2, Math.round(expectedLeadsCount * 1.15));
+
       let campaignStructure = '1 CBO (Campaign Budget Optimization) with 2 Ad Sets targeting Broad Interests and Lookalikes.';
       let customConversions = 'Meta Instant Form Lead Event + Conversions CAPI backup';
       let recommendedCreativeStrategy = '2x Hook-to-Problem static sheets, 2x video walk-through, 1x customer social proof reel.';
 
-      if (formData.businessCategory.includes('Real Estate')) {
-        estimatedCPLRange = '₹500 - ₹1,200';
-        expectedMonthlyLeads = formData.adSpend === '₹25,000 - ₹50,000' ? '30 - 60' : 
-                               formData.adSpend === '₹50,000 - ₹1,50,000' ? '80 - 180' : '200 - 600';
+      const categoryLower = formData.businessCategory.toLowerCase();
+      if (categoryLower.includes('estate') || categoryLower.includes('property')) {
         campaignStructure = 'ABO Testing Campaign targeting specific pin-codes combined with a high-intent custom questionnaire to qualify buyers.';
         customConversions = 'Instant Form Pre-Qualifying CRM trigger';
         recommendedCreativeStrategy = 'Cinematic drone teaser, WhatsApp chat hook, client reference layout static grid.';
-      } else if (formData.businessCategory.includes('Corporate Services') || formData.businessCategory.includes('Coaching')) {
-        estimatedCPLRange = '₹350 - ₹750';
-        expectedMonthlyLeads = formData.adSpend === '₹25,000 - ₹50,000' ? '40 - 80' : 
-                               formData.adSpend === '₹50,000 - ₹1,50,000' ? '120 - 250' : '300 - 800';
-        campaignStructure = 'CBO Campaign utilizing lead-generation forms with automatic phone number verification to weed out bad inputs.';
-        customConversions = 'Schedule Consult Event or WhatsApp Chat initiation CAPI tracker';
-        recommendedCreativeStrategy = 'Founder interview style hook, Problem breakdown checklist static graphic, case study proof deck.';
-      } else if (formData.businessCategory.includes('Weddings')) {
-        estimatedCPLRange = '₹250 - ₹550';
-        expectedMonthlyLeads = formData.adSpend === '₹25,000 - ₹50,000' ? '60 - 120' : 
-                               formData.adSpend === '₹50,000 - ₹1,50,000' ? '180 - 360' : '400 - 1000';
-        campaignStructure = 'Visual Portfolio CBO Campaign retargeting past site visitors and Instagram profiles with bespoke visual proofs.';
+      } else if (categoryLower.includes('event') || categoryLower.includes('wedding')) {
+        campaignStructure = 'Visual Portfolio CBO Campaign retargeting past site visitors with bespoke luxury celebration proofs.';
         customConversions = 'Custom Lead Event synced with WhatsApp CRM';
         recommendedCreativeStrategy = 'Breathtaking 15-sec destination teaser reel, client emotional response review, visual carousel.';
+      } else if (categoryLower.includes('theater') || categoryLower.includes('cinema')) {
+        campaignStructure = 'Automated WhatsApp Chatbot Campaign coupled with local engagement lookalike audiences.';
+        customConversions = 'WhatsApp booking initiation CAPI track';
+        recommendedCreativeStrategy = 'Immersive acoustic room walk-through, VIP booking offer carousel, client experience reels.';
+      } else if (categoryLower.includes('boutique') || categoryLower.includes('fashion') || categoryLower.includes('wear') || categoryLower.includes('brand')) {
+        campaignStructure = 'Meta Advantage+ Shopping Campaign (ASC) utilizing catalog feeds and dynamic creative optimization (DCO).';
+        customConversions = 'Purchase Conversions API standard event';
+        recommendedCreativeStrategy = 'High-end fabric texture macro shots, boutique aesthetic tour, styled outfit transitions.';
       }
 
       setBlueprint({
-        estimatedCPL: estimatedCPLRange,
-        volume: expectedMonthlyLeads,
+        estimatedCPL: `₹${parsedCpl}`,
+        volume: `${minLeads} - ${maxLeads}`,
         structure: campaignStructure,
         conversionSetup: customConversions,
         creativeMix: recommendedCreativeStrategy,
@@ -120,12 +102,17 @@ export default function StrategyPage() {
       setTimeout(() => {
         document.getElementById('strategy-results-view')?.scrollIntoView({ behavior: 'smooth' });
       }, 100);
-    }, 1500);
+
+      // Construct WhatsApp message and open directly! (All enquiries to WhatsApp)
+      const whatsappText = `Hello Aman, I just completed my Supreme Ads Meta Lead Generation Strategy Planner.\n\n*My Custom Details*:\n• Service Vertical: ${formData.businessCategory}\n• Monthly Spend: ₹${formData.adSpend}\n• Target CPL: ₹${formData.targetCpl}\n• Primary Sales Goal: ${formData.salesObjective}\n• Average Ticket: ${formData.orderValue || 'N/A'}\n• Target Audience: ${formData.targetAvatar || 'General'}\n\n*Proposed Blueprint*:\n• Target CPL Goal: ₹${parsedCpl}\n• Est. Monthly Leads: ${minLeads} - ${maxLeads}/Mo\n• Creative Mix: ${recommendedCreativeStrategy}\n\nI want to schedule an interactive live audit call to implement this custom sales pipeline. Let's discuss!`;
+      const encodedMsg = encodeURIComponent(whatsappText);
+      window.open(`https://wa.me/919667173693?text=${encodedMsg}`, '_blank');
+    }, 1200);
   };
 
   const getWhatsAppMessageRaw = () => {
     if (!blueprint) return '';
-    const text = `Hello Aman, I just completed my Supreme Ads Meta Lead Generation Strategy Planner.\n\n*My Details*:\n• Business Segment: ${formData.businessCategory}\n• Estimated Spend: ${formData.adSpend}\n• Primary Sales Goal: ${formData.salesObjective}\n• Average Ticket: ${formData.orderValue || 'N/A'}\n• Audience: ${formData.targetAvatar || 'General target'}\n\n*Proposed Blueprint*:\n• Target CPL: ${blueprint.estimatedCPL}\n• Expected Leads: ${blueprint.volume}/Mo\n• Creative Mix: ${blueprint.creativeMix}\n\nI want to schedule an interactive live audit call to implement this custom sales pipeline. Let's discuss!`;
+    const text = `Hello Aman, I just completed my Supreme Ads Meta Lead Generation Strategy Planner.\n\n*My Custom Details*:\n• Service Vertical: ${formData.businessCategory}\n• Monthly Spend: ₹${formData.adSpend}\n• Target CPL: ₹${formData.targetCpl}\n• Primary Sales Goal: ${formData.salesObjective}\n• Average Ticket: ${formData.orderValue || 'N/A'}\n• Target Audience: ${formData.targetAvatar || 'General'}\n\n*Proposed Blueprint*:\n• Target CPL Goal: ${blueprint.estimatedCPL}\n• Est. Monthly Leads: ${blueprint.volume}/Mo\n• Creative Mix: ${blueprint.creativeMix}\n\nI want to schedule an interactive live audit call to implement this custom sales pipeline. Let's discuss!`;
     return encodeURIComponent(text);
   };
 
@@ -265,48 +252,74 @@ export default function StrategyPage() {
 
               <form onSubmit={generateStrategy} className="space-y-6 bg-slate-800/40 p-6 md:p-8 rounded-2xl border border-slate-800 backdrop-blur-sm relative">
                 
-                {/* 1. Category */}
+                {/* 1. Category (Service Vertical / Industry) */}
                 <div className="space-y-3">
-                  <label className="text-[10px] font-heading font-semibold text-slate-400 uppercase tracking-widest block">
-                    Your Core Business Classification
+                  <label htmlFor="businessCategory" className="text-[10px] font-heading font-semibold text-slate-400 uppercase tracking-widest block">
+                    Service Vertical / Industry (Available to any in the market)
                   </label>
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                    {businessCategories.map((cat) => {
-                      const isSelected = formData.businessCategory === cat;
-                      return (
-                        <button
-                          key={cat}
-                          type="button"
-                          onClick={() => handleCategorySelect(cat)}
-                          className={`p-3 text-[10px] font-heading font-medium uppercase tracking-wider text-left border rounded-lg transition-all duration-300 ${
-                            isSelected 
-                              ? 'bg-accent border-accent text-primary font-bold shadow-lg transform scale-[1.01]' 
-                              : 'bg-slate-900/60 border-slate-700 text-slate-300 hover:border-slate-500'
-                          }`}
-                        >
-                          {cat}
-                        </button>
-                      );
-                    })}
+                  <input
+                    id="businessCategory"
+                    name="businessCategory"
+                    type="text"
+                    required
+                    placeholder="e.g. Real Estate, Private Theater, Lady Boutique, High Class Event"
+                    value={formData.businessCategory}
+                    onChange={handleInputChange}
+                    className="w-full bg-slate-900 border border-slate-700 rounded-lg p-3.5 text-xs text-white outline-none focus:border-accent font-sans transition-colors"
+                  />
+                  
+                  {/* Quick Select Suggestion Tags */}
+                  <div className="flex flex-wrap gap-2 pt-1">
+                    {['Real Estate', 'Event Management', 'Private Theater', 'Lady Boutique', 'E-commerce', 'Consulting'].map((cat) => (
+                      <button
+                        key={cat}
+                        type="button"
+                        onClick={() => setFormData(prev => ({ ...prev, businessCategory: cat }))}
+                        className={`px-3 py-1 rounded-full text-[9px] font-heading font-semibold uppercase tracking-widest border transition-all ${
+                          formData.businessCategory.toLowerCase().includes(cat.toLowerCase().substring(0, 5))
+                            ? 'bg-accent/20 border-accent text-accent'
+                            : 'bg-slate-900/60 border-slate-700 text-slate-400 hover:text-white'
+                        }`}
+                      >
+                        + {cat}
+                      </button>
+                    ))}
                   </div>
                 </div>
 
-                {/* 2. Spend */}
-                <div className="space-y-3">
-                  <label htmlFor="adSpend" className="text-[10px] font-heading font-semibold text-slate-400 uppercase tracking-widest block">
-                    Target Monthly Marketing Spend (INR)
-                  </label>
-                  <select
-                    id="adSpend"
-                    name="adSpend"
-                    value={formData.adSpend}
-                    onChange={handleInputChange}
-                    className="w-full bg-slate-900 border border-slate-700 rounded-lg p-3.5 text-xs text-white outline-none focus:border-accent font-sans cursor-pointer transition-colors"
-                  >
-                    {expenditureTiers.map(tier => (
-                      <option key={tier} value={tier}>{tier} spend per month</option>
-                    ))}
-                  </select>
+                {/* 2. Spend & Target CPL (No caps, no min, no max) */}
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <div className="space-y-3">
+                    <label htmlFor="adSpend" className="text-[10px] font-heading font-semibold text-slate-400 uppercase tracking-widest block">
+                      Target Monthly Marketing Spend (₹ INR — No Limits)
+                    </label>
+                    <input
+                      id="adSpend"
+                      name="adSpend"
+                      type="text"
+                      required
+                      placeholder="e.g. 50000 or 1.5 Lakh"
+                      value={formData.adSpend}
+                      onChange={handleInputChange}
+                      className="w-full bg-slate-900 border border-slate-700 rounded-lg p-3.5 text-xs text-white outline-none focus:border-accent font-sans transition-colors"
+                    />
+                  </div>
+
+                  <div className="space-y-3">
+                    <label htmlFor="targetCpl" className="text-[10px] font-heading font-semibold text-slate-400 uppercase tracking-widest block">
+                      Target Cost Per Lead (₹ CPL — No Limits)
+                    </label>
+                    <input
+                      id="targetCpl"
+                      name="targetCpl"
+                      type="text"
+                      required
+                      placeholder="e.g. 150 or 500"
+                      value={formData.targetCpl}
+                      onChange={handleInputChange}
+                      className="w-full bg-slate-900 border border-slate-700 rounded-lg p-3.5 text-xs text-white outline-none focus:border-accent font-sans transition-colors"
+                    />
+                  </div>
                 </div>
 
                 {/* 4. Objective */}
@@ -359,6 +372,13 @@ export default function StrategyPage() {
                   </div>
                 </div>
 
+                {/* Estimated Value Notice Box inside inputs */}
+                <div className="p-3.5 bg-accent/5 border border-accent/20 rounded-xl">
+                  <p className="text-[10px] text-slate-300 leading-normal font-sans">
+                    <strong>Estimated Value:</strong> Any calculated lead counts, volumes, or targets are initial dynamic estimates for planning purposes. The final real metrics and performance numbers will be determined solely by Meta's active algorithms and live advertising auctions.
+                  </p>
+                </div>
+
                 {/* Submit button */}
                 <button
                   type="submit"
@@ -372,7 +392,7 @@ export default function StrategyPage() {
                     </>
                   ) : (
                     <>
-                      <span>Generate Custom Strategy Blueprint</span>
+                      <span>Generate Strategy &amp; Send to WhatsApp</span>
                       <ArrowRight size={13} className="stroke-[2.5px]" />
                     </>
                   )}

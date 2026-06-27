@@ -27,7 +27,7 @@ export default function ContactPage() {
     {
       icon: <Compass size={18} className="text-accent" />,
       title: 'Physical Inquiries',
-      desc: 'Suite 920, Premium Capital Towers, Elite Business District, Dubai.',
+      desc: 'Suite 402, Capital Chambers, Connaught Place, New Delhi, 110001, India.',
       action: 'Schedule Visit'
     }
   ];
