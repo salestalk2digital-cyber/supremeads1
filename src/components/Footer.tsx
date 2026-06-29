@@ -92,7 +92,16 @@ export default function Footer({ onLinkClick }: FooterProps) {
             &copy; {new Date().getFullYear()} SUPREME ADS. All rights reserved.
           </div>
           <div className="flex gap-6 text-xs text-gray-500 uppercase tracking-wider">
-            <a href="#disclaimer" className="hover:text-white transition-colors">Privacy Policy</a>
+            <a
+              href="#privacy-policy"
+              onClick={(e) => {
+                e.preventDefault();
+                onLinkClick('#privacy-policy');
+              }}
+              className="hover:text-white transition-colors"
+            >
+              Privacy Policy
+            </a>
             <a href="#disclaimer" className="hover:text-white transition-colors">Terms of Performance</a>
             <a
               href="#admin"

@@ -20,6 +20,7 @@ import ClientsPage from './pages/ClientsPage';
 import GalleryPage from './pages/GalleryPage';
 import ContactPage from './pages/ContactPage';
 import AdminPage from './pages/AdminPage';
+import PrivacyPolicyPage from './pages/PrivacyPolicyPage';
 
 function AppContent() {
   const [activeHash, setActiveHash] = useState('#home');
@@ -85,6 +86,9 @@ function AppContent() {
         return <ContactPage />;
       case '#admin':
         return <AdminPage />;
+      case '#privacy':
+      case '#privacy-policy':
+        return <PrivacyPolicyPage onNavigate={handleLinkClick} />;
       default:
         return <HomePage onNavigate={handleLinkClick} />;
     }

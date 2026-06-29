@@ -41,7 +41,7 @@ export default function CaseStudiesPage() {
             <h3 className="font-heading font-semibold text-base text-primary uppercase">
               Campaign Objective Index
             </h3>
-            <p className="text-xs text-slate-500 font-sans font-light">
+            <p className="text-xs text-slate-700 font-sans font-medium">
               Select key target conversions and audit real verified outcomes.
             </p>
           </div>
@@ -128,7 +128,7 @@ export default function CaseStudiesPage() {
                             <span className="w-1.5 h-1.5 bg-accent rounded-full" />
                             Client Challenge
                           </h4>
-                          <p className="text-xs text-slate-600 font-sans font-light leading-relaxed pl-4">
+                          <p className="text-xs text-slate-800 font-sans leading-relaxed pl-4">
                             {study.challenge}
                           </p>
                         </div>
@@ -138,7 +138,7 @@ export default function CaseStudiesPage() {
                             <span className="w-1.5 h-1.5 bg-accent rounded-full" />
                             Engine Strategy
                           </h4>
-                          <p className="text-xs text-slate-600 font-sans font-light leading-relaxed pl-4">
+                          <p className="text-xs text-slate-800 font-sans leading-relaxed pl-4">
                             {study.solution}
                           </p>
                         </div>
