@@ -1,16 +1,83 @@
-import { motion } from 'motion/react';
+import { useState, useEffect } from 'react';
+import { motion, AnimatePresence } from 'motion/react';
 import Hero from '../components/Hero';
 import Metrics from '../components/Metrics';
 import ClientMarquee from '../components/ClientMarquee';
+import TestimonialCarousel from '../components/TestimonialCarousel';
 import { whyChooseUs } from '../data';
 import { useCMS } from '../context/CMSContext';
-import { ArrowRight, CheckCircle, Layers, Target, Lightbulb, ShieldCheck, Truck, TrendingUp } from 'lucide-react';
+import { ArrowRight, CheckCircle, Layers, Target, Lightbulb, ShieldCheck, Truck, TrendingUp, HelpCircle, ChevronDown, ChevronUp } from 'lucide-react';
 
 interface HomePageProps {
   onNavigate: (href: string) => void;
 }
 
 export default function HomePage({ onNavigate }: HomePageProps) {
+  const [openFaq, setOpenFaq] = useState<number | null>(null);
+
+  // Inject FAQPage Schema (JSON-LD) dynamically to boost Google ranking
+  useEffect(() => {
+    const schema = {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "What is Supreme Ads, and how do you help businesses grow?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Supreme Ads is an elite performance-driven advertising agency specializing in high-intent lead generation using Meta Ads (Facebook & Instagram). We help businesses eliminate wasted ad spend by implementing rigorous competitor analysis, creative guidelines, and audience targeting that filters out low-value clicks and captures high-converting customers."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How does your lead generation system work?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Our system is engineered in four distinct phases: detailed Product Analysis, precision Audience Research, comprehensive Market Survey, and creative-copywriting guidance. We pre-qualify leads directly inside Meta forms and custom landing pages, ensuring your sales team only interacts with genuine buyers."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What industries do you specialize in scaling?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "We have a verified track record in High-Ticket Real Estate, B2B Professional Services, Financial and Legal Consulting, Health & Medical practices, and Luxury Consumer brands. Our customized industry blueprints adapt directly to the target buyer profile."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Do you provide a ROAS (Return on Ad Spend) guarantee or proof?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes, we provide complete transparency. Our campaigns deliver an average of 5.8x ROAS. We present real-time dashboards and case studies showing audited ad account metrics so you can verify our results before scaling."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How can I get started with Supreme Ads?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Getting started is simple and risk-free. You can click on 'Book Strategy Call' and fill out our contact form to claim a free 30-minute campaign audit and custom Meta Ads blueprint session with our senior strategist."
+          }
+        }
+      ]
+    };
+
+    const script = document.createElement('script');
+    script.id = 'faq-schema-json';
+    script.type = 'application/ld+json';
+    script.innerHTML = JSON.stringify(schema);
+    document.head.appendChild(script);
+
+    return () => {
+      const existingScript = document.getElementById('faq-schema-json');
+      if (existingScript) {
+        existingScript.remove();
+      }
+    };
+  }, []);
+
   const homeSteps = [
     {
       title: 'PRODUCT ANALYSIS',
@@ -343,6 +410,90 @@ export default function HomePage({ onNavigate }: HomePageProps) {
                 </div>
               </div>
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Dynamic Luminous Testimonials */}
+      <TestimonialCarousel />
+
+      {/* SEO ACCORDION / HIGH-INTENT FAQ SECTION */}
+      <section className="py-24 bg-slate-50 border-t border-b border-slate-100">
+        <div className="max-w-4xl mx-auto px-6">
+          <div className="text-center space-y-4 mb-16">
+            <span className="text-xs font-heading font-bold text-accent tracking-[0.3em] uppercase block">
+              FREQUENTLY ASKED QUESTIONS
+            </span>
+            <h2 className="font-heading font-semibold text-2xl sm:text-3xl md:text-4xl text-primary uppercase tracking-tight">
+              Meta Ads <span className="font-serif italic text-accent capitalize tracking-normal">Intel &amp; Blueprints</span>
+            </h2>
+            <p className="font-sans text-slate-500 text-xs sm:text-sm max-w-lg mx-auto leading-relaxed">
+              Clear, precise answers regarding lead quality, ROAS scalability, and how we engineer high-converting marketing campaigns.
+            </p>
+          </div>
+
+          <div className="space-y-4">
+            {[
+              {
+                q: "What is Supreme Ads, and how do you help businesses grow?",
+                a: "Supreme Ads is an elite performance-driven advertising agency specializing in high-intent lead generation using Meta Ads (Facebook & Instagram). We help businesses eliminate wasted ad spend by implementing rigorous competitor analysis, creative guidelines, and audience targeting that filters out low-value clicks and captures high-converting customers."
+              },
+              {
+                q: "How does your lead generation system work?",
+                a: "Our system is engineered in four distinct phases: detailed Product Analysis, precision Audience Research, comprehensive Market Survey, and creative-copywriting guidance. We pre-qualify leads directly inside Meta forms and custom landing pages, ensuring your sales team only interacts with genuine buyers."
+              },
+              {
+                q: "What industries do you specialize in scaling?",
+                a: "We have a verified track record in High-Ticket Real Estate, B2B Professional Services, Financial and Legal Consulting, Health & Medical practices, and Luxury Consumer brands. Our customized industry blueprints adapt directly to the target buyer profile."
+              },
+              {
+                q: "Do you provide a ROAS (Return on Ad Spend) guarantee or proof?",
+                a: "Yes, we provide complete transparency. Our campaigns deliver an average of 5.8x ROAS. We present real-time dashboards and case studies showing audited ad account metrics so you can verify our results before scaling."
+              },
+              {
+                q: "How can I get started with Supreme Ads?",
+                a: "Getting started is simple and risk-free. You can click on 'Book Strategy Call' and fill out our contact form to claim a free 30-minute campaign audit and custom Meta Ads blueprint session with our senior strategist."
+              }
+            ].map((item, index) => {
+              const isOpen = openFaq === index;
+              return (
+                <div
+                  key={index}
+                  className="bg-white border border-slate-150 rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-all duration-300"
+                >
+                  <button
+                    type="button"
+                    onClick={() => setOpenFaq(isOpen ? null : index)}
+                    className="w-full text-left px-6 py-5 flex justify-between items-center gap-4 hover:bg-slate-50/50 transition-colors cursor-pointer"
+                  >
+                    <span className="font-heading font-semibold text-xs sm:text-sm tracking-wide text-primary uppercase flex items-center gap-3">
+                      <HelpCircle size={16} className="text-accent shrink-0" />
+                      {item.q}
+                    </span>
+                    <span className="text-slate-400 shrink-0">
+                      {isOpen ? <ChevronUp size={16} className="text-accent" /> : <ChevronDown size={16} />}
+                    </span>
+                  </button>
+
+                  <AnimatePresence initial={false}>
+                    {isOpen && (
+                      <motion.div
+                        initial={{ height: 0, opacity: 0 }}
+                        animate={{ height: 'auto', opacity: 1 }}
+                        exit={{ height: 0, opacity: 0 }}
+                        transition={{ duration: 0.3, ease: 'easeInOut' }}
+                      >
+                        <div className="px-6 pb-6 pt-1 border-t border-slate-100">
+                          <p className="font-sans text-xs sm:text-sm text-slate-600 leading-relaxed font-light">
+                            {item.a}
+                          </p>
+                        </div>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+                </div>
+              );
+            })}
           </div>
         </div>
       </section>

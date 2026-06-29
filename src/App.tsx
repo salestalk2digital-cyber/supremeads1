@@ -3,10 +3,10 @@ import { motion, AnimatePresence } from 'motion/react';
 import { CMSProvider } from './context/CMSContext';
 
 // Custom layout elements
-import CustomCursor from './components/CustomCursor';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import WhatsAppButton from './components/WhatsAppButton';
+import { AppSEO } from './components/SEO';
 
 // Diverse independent page modules
 import HomePage from './pages/HomePage';
@@ -134,8 +134,8 @@ function AppContent() {
           transition={{ duration: 0.8 }}
           className="relative flex flex-col min-h-screen"
         >
-          {/* Custom stateful micro-interactive cursor */}
-          <CustomCursor />
+          {/* Inject Dynamic Head SEO tags for maximum organic Google ranking */}
+          <AppSEO activeHash={activeHash} />
 
           {/* Transparent Glass Navigation */}
           <Navbar activeHash={activeHash} onLinkClick={handleLinkClick} />

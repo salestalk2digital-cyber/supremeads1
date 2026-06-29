@@ -8,4 +8,4 @@ Disallow: /admin/
 Disallow: /api/
 
 # Sitemap location
-Sitemap: https://www.instagram.com/supremeadvertisements/sitemap.xml
+Sitemap: https://supremeads.agency/sitemap.xml
