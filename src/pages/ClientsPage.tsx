@@ -1,5 +1,6 @@
 import { useCMS } from '../context/CMSContext';
 import { ShieldCheck, CalendarRange, Medal, Layers } from 'lucide-react';
+import SocialProofCarousel from '../components/SocialProofCarousel';
 
 export default function ClientsPage() {
   const { clientLogos } = useCMS();
@@ -72,6 +73,26 @@ export default function ClientsPage() {
               </span>
             </div>
           ))}
+        </div>
+      </section>
+
+      {/* Verified Performance & Results Showcase */}
+      <section className="py-24 bg-gradient-to-b from-white to-slate-50 border-t border-slate-100">
+        <div className="max-w-7xl mx-auto px-6 md:px-12">
+          <div className="text-center space-y-4 mb-16 max-w-2xl mx-auto">
+            <span className="text-xs font-heading font-bold text-accent tracking-[0.3em] uppercase block">
+              LIVE GROWTH STATS &amp; FEEDBACK
+            </span>
+            <h2 className="font-heading font-semibold text-3xl md:text-4xl uppercase tracking-tighter text-primary">
+              VERIFIED <span className="font-serif italic text-accent capitalize">SUCCESS STORIES</span>
+            </h2>
+            <p className="text-xs md:text-sm text-slate-500 font-sans leading-relaxed">
+              Real metrics, real scale. Explore detailed breakdowns from our clients verified through official ad accounts and business audits.
+            </p>
+            <div className="w-16 h-1 bg-gradient-to-r from-cyan-400 via-fuchsia-500 to-pink-500 mx-auto rounded-full" />
+          </div>
+
+          <SocialProofCarousel />
         </div>
       </section>
 
