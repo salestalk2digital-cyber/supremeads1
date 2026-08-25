@@ -1,8 +1,13 @@
 import { useCMS } from '../context/CMSContext';
 import { ShieldCheck, CalendarRange, Medal, Layers } from 'lucide-react';
 import SocialProofCarousel from '../components/SocialProofCarousel';
+import PublicFeedbackSection from '../components/PublicFeedbackSection';
 
-export default function ClientsPage() {
+interface ClientsPageProps {
+  onNavigate?: (href: string) => void;
+}
+
+export default function ClientsPage({ onNavigate }: ClientsPageProps) {
   const { clientLogos } = useCMS();
   const certifications = [
     {
@@ -95,6 +100,9 @@ export default function ClientsPage() {
           <SocialProofCarousel />
         </div>
       </section>
+
+      {/* Public Feedback & Review Section */}
+      <PublicFeedbackSection onNavigate={onNavigate} />
 
       {/* Platform Authority certifications */}
       <section className="py-24 bg-slate-50 border-t border-b border-slate-100">

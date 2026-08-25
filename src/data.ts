@@ -9,6 +9,7 @@ export const navigationLinks = [
   { label: 'Industries', href: '#industries' },
   { label: 'Case Studies', href: '#case-studies' },
   { label: 'Clients & Proof', href: '#clients' },
+  { label: 'Reviews', href: '#reviews' },
   { label: 'Gallery', href: '#gallery' },
   { label: 'Contact', href: '#contact' }
 ];

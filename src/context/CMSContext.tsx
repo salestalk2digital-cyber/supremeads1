@@ -5,6 +5,11 @@ import {
   getDbClientLogos, 
   getDbGalleryItems, 
   getDbTestimonials,
+  getPublicReviews,
+  addPublicReview,
+  updatePublicReview,
+  deletePublicReview,
+  togglePublicReviewStatus,
   saveHeroConfig,
   saveCaseStudy,
   deleteCaseStudy,
@@ -14,6 +19,11 @@ import {
   deleteGalleryItem,
   saveTestimonial,
   deleteTestimonial,
+  auth,
+  googleProvider,
+  signInWithPopup,
+  signOut,
+  onAuthStateChanged,
   HeroConfig
 } from '../lib/firebase';
 import { 
@@ -23,7 +33,7 @@ import {
   galleryItems as defaultGalleryItems, 
   testimonialsData as defaultTestimonials 
 } from '../data';
-import { CaseStudy, GalleryItem, ClientLogo, Testimonial } from '../types';
+import { CaseStudy, GalleryItem, ClientLogo, Testimonial, PublicReview } from '../types';
 
 interface CMSContextType {
   hero: HeroConfig;
@@ -31,9 +41,17 @@ interface CMSContextType {
   clientLogos: ClientLogo[];
   galleryItems: GalleryItem[];
   testimonials: Testimonial[];
+  publicReviews: PublicReview[];
   loading: boolean;
+  userEmail: string | null;
+  userName: string | null;
   refreshCMS: () => Promise<void>;
   
+  // Auth actions for reviewer identification
+  loginWithGoogle: () => Promise<string | null>;
+  loginWithEmail: (email: string, name?: string) => void;
+  logoutUser: () => Promise<void>;
+
   // Update actions
   updateHero: (config: HeroConfig) => Promise<void>;
   upsertCaseStudy: (id: string, study: Omit<CaseStudy, 'id'>) => Promise<void>;
@@ -44,6 +62,12 @@ interface CMSContextType {
   removeGalleryItem: (id: string) => Promise<void>;
   upsertTestimonial: (id: string, testimonial: Omit<Testimonial, 'id'>) => Promise<void>;
   removeTestimonial: (id: string) => Promise<void>;
+
+  // Public Review actions
+  submitReview: (review: Omit<PublicReview, 'id' | 'createdAt' | 'updatedAt' | 'status'>) => Promise<string>;
+  modifyReview: (id: string, review: Partial<PublicReview>) => Promise<void>;
+  deleteReview: (id: string) => Promise<void>;
+  toggleReviewVisibility: (id: string, status: 'published' | 'hidden') => Promise<void>;
 }
 
 const CMSContext = createContext<CMSContextType | undefined>(undefined);
@@ -54,7 +78,72 @@ export function CMSProvider({ children }: { children: React.ReactNode }) {
   const [clientLogosList, setClientLogosList] = useState<ClientLogo[]>(defaultClientLogos);
   const [galleryItemsList, setGalleryItemsList] = useState<GalleryItem[]>(defaultGalleryItems);
   const [testimonialsList, setTestimonialsList] = useState<Testimonial[]>(defaultTestimonials);
+  const [publicReviewsList, setPublicReviewsList] = useState<PublicReview[]>([]);
   const [loading, setLoading] = useState(true);
+
+  // Authenticated user for reviewer verification and editing
+  const [userEmail, setUserEmail] = useState<string | null>(() => {
+    return localStorage.getItem('supremeads_reviewer_email') || null;
+  });
+  const [userName, setUserName] = useState<string | null>(() => {
+    return localStorage.getItem('supremeads_reviewer_name') || null;
+  });
+
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      if (user && user.email) {
+        setUserEmail(user.email.toLowerCase());
+        setUserName(user.displayName || user.email.split('@')[0]);
+        localStorage.setItem('supremeads_reviewer_email', user.email.toLowerCase());
+        if (user.displayName) {
+          localStorage.setItem('supremeads_reviewer_name', user.displayName);
+        }
+      }
+    });
+    return () => unsubscribe();
+  }, []);
+
+  const loginWithGoogle = async (): Promise<string | null> => {
+    try {
+      const result = await signInWithPopup(auth, googleProvider);
+      if (result.user && result.user.email) {
+        const email = result.user.email.toLowerCase();
+        setUserEmail(email);
+        setUserName(result.user.displayName || email.split('@')[0]);
+        localStorage.setItem('supremeads_reviewer_email', email);
+        if (result.user.displayName) {
+          localStorage.setItem('supremeads_reviewer_name', result.user.displayName);
+        }
+        return email;
+      }
+      return null;
+    } catch (err) {
+      console.warn('Google sign-in popup error (fallback to email login):', err);
+      return null;
+    }
+  };
+
+  const loginWithEmail = (email: string, name?: string) => {
+    const cleanEmail = email.trim().toLowerCase();
+    setUserEmail(cleanEmail);
+    localStorage.setItem('supremeads_reviewer_email', cleanEmail);
+    if (name) {
+      setUserName(name);
+      localStorage.setItem('supremeads_reviewer_name', name);
+    }
+  };
+
+  const logoutUser = async () => {
+    try {
+      await signOut(auth);
+    } catch (err) {
+      console.error(err);
+    }
+    setUserEmail(null);
+    setUserName(null);
+    localStorage.removeItem('supremeads_reviewer_email');
+    localStorage.removeItem('supremeads_reviewer_name');
+  };
 
   const refreshCMS = async () => {
     setLoading(true);
@@ -80,7 +169,6 @@ export function CMSProvider({ children }: { children: React.ReactNode }) {
 
       const dbGallery = await getDbGalleryItems();
       if (dbGallery && dbGallery.length > 0) {
-        // Map any string-union types appropriately or default it safely
         setGalleryItemsList(dbGallery as GalleryItem[]);
       } else {
         setGalleryItemsList(defaultGalleryItems);
@@ -92,6 +180,9 @@ export function CMSProvider({ children }: { children: React.ReactNode }) {
       } else {
         setTestimonialsList(defaultTestimonials);
       }
+
+      const dbReviews = await getPublicReviews();
+      setPublicReviewsList(dbReviews);
     } catch (error) {
       console.error('Error refreshing CMS data:', error);
     } finally {
@@ -152,6 +243,30 @@ export function CMSProvider({ children }: { children: React.ReactNode }) {
     await refreshCMS();
   };
 
+  // Public Review Handlers
+  const submitReview = async (review: Omit<PublicReview, 'id' | 'createdAt' | 'updatedAt' | 'status'>) => {
+    const docId = await addPublicReview(review);
+    // Auto login as this reviewer email so they can edit immediately
+    loginWithEmail(review.authorEmail, review.authorName);
+    await refreshCMS();
+    return docId;
+  };
+
+  const modifyReview = async (id: string, review: Partial<PublicReview>) => {
+    await updatePublicReview(id, review);
+    await refreshCMS();
+  };
+
+  const deleteReview = async (id: string) => {
+    await deletePublicReview(id);
+    await refreshCMS();
+  };
+
+  const toggleReviewVisibility = async (id: string, status: 'published' | 'hidden') => {
+    await togglePublicReviewStatus(id, status);
+    await refreshCMS();
+  };
+
   return (
     <CMSContext.Provider value={{
       hero,
@@ -159,8 +274,14 @@ export function CMSProvider({ children }: { children: React.ReactNode }) {
       clientLogos: clientLogosList,
       galleryItems: galleryItemsList,
       testimonials: testimonialsList,
+      publicReviews: publicReviewsList,
       loading,
+      userEmail,
+      userName,
       refreshCMS,
+      loginWithGoogle,
+      loginWithEmail,
+      logoutUser,
       updateHero,
       upsertCaseStudy,
       removeCaseStudy,
@@ -169,7 +290,11 @@ export function CMSProvider({ children }: { children: React.ReactNode }) {
       upsertGalleryItem,
       removeGalleryItem,
       upsertTestimonial,
-      removeTestimonial
+      removeTestimonial,
+      submitReview,
+      modifyReview,
+      deleteReview,
+      toggleReviewVisibility
     }}>
       {children}
     </CMSContext.Provider>
@@ -183,3 +308,4 @@ export function useCMS() {
   }
   return context;
 }
+

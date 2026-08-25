@@ -1,7 +1,10 @@
 {
-  "collections": {
-    "enquiries": {
-      "schema": {
+  "entities": {
+    "Enquiry": {
+      "title": "Enquiry",
+      "description": "Lead and contact form submissions",
+      "type": "object",
+      "properties": {
         "name": { "type": "string" },
         "companyName": { "type": "string" },
         "phone": { "type": "string" },
@@ -9,8 +12,59 @@
         "industry": { "type": "string" },
         "budget": { "type": "string" },
         "message": { "type": "string" },
-        "createdAt": { "type": "timestamp" }
-      }
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["name", "email", "phone"]
+    },
+    "PublicReview": {
+      "title": "PublicReview",
+      "description": "Public client feedback and business review submission",
+      "type": "object",
+      "properties": {
+        "businessName": { "type": "string", "description": "Name of the client business" },
+        "authorName": { "type": "string", "description": "Name of the person leaving the review" },
+        "authorEmail": { "type": "string", "description": "Email address of the author for authentication and edit rights" },
+        "role": { "type": "string", "description": "Job title or role in the company" },
+        "rating": { "type": "number", "description": "Rating score between 1 and 5" },
+        "industry": { "type": "string", "description": "Industry category" },
+        "growthResult": { "type": "string", "description": "Key quantifiable outcome achieved" },
+        "feedback": { "type": "string", "description": "Review testimonial commentary" },
+        "avatarUrl": { "type": "string", "description": "Optional profile photo or company logo" },
+        "status": { "type": "string", "enum": ["published", "hidden"] },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["businessName", "authorName", "authorEmail", "rating", "feedback"]
+    }
+  },
+  "firestore": {
+    "/enquiries/{enquiryId}": {
+      "schema": "Enquiry",
+      "description": "Form lead enquiries"
+    },
+    "/public_reviews/{reviewId}": {
+      "schema": "PublicReview",
+      "description": "Public client reviews and testimonials"
+    },
+    "/system/{systemId}": {
+      "schema": "SystemConfig",
+      "description": "Hero and system configurations"
+    },
+    "/case_studies/{studyId}": {
+      "schema": "CaseStudy",
+      "description": "Audited case studies"
+    },
+    "/client_logos/{logoId}": {
+      "schema": "ClientLogo",
+      "description": "Client brand logos"
+    },
+    "/gallery_items/{galleryId}": {
+      "schema": "GalleryItem",
+      "description": "Proof gallery items"
+    },
+    "/testimonials/{testimonialId}": {
+      "schema": "Testimonial",
+      "description": "Featured testimonials"
     }
   }
 }

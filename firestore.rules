@@ -6,8 +6,12 @@ service cloud.firestore {
       allow read, write: if false;
     }
 
-    // 2. Explicitly allowed collections for application CMS and Enquiries
+    // 2. Explicitly allowed collections for application CMS, Enquiries, and Public Reviews
     match /enquiries/{document} {
+      allow read, write: if true;
+    }
+
+    match /public_reviews/{document} {
       allow read, write: if true;
     }
 
@@ -32,3 +36,4 @@ service cloud.firestore {
     }
   }
 }
+

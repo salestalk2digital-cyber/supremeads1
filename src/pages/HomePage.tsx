@@ -4,6 +4,7 @@ import Hero from '../components/Hero';
 import Metrics from '../components/Metrics';
 import ClientMarquee from '../components/ClientMarquee';
 import TestimonialCarousel from '../components/TestimonialCarousel';
+import PublicFeedbackSection from '../components/PublicFeedbackSection';
 import { whyChooseUs } from '../data';
 import { useCMS } from '../context/CMSContext';
 import { ArrowRight, CheckCircle, Layers, Target, Lightbulb, ShieldCheck, Truck, TrendingUp, HelpCircle, ChevronDown, ChevronUp } from 'lucide-react';
@@ -416,6 +417,9 @@ export default function HomePage({ onNavigate }: HomePageProps) {
 
       {/* Dynamic Luminous Testimonials */}
       <TestimonialCarousel />
+
+      {/* Public Client Reviews & Ratings Ledger */}
+      <PublicFeedbackSection initialLimit={6} showAllLink={true} onNavigate={onNavigate} />
 
       {/* SEO ACCORDION / HIGH-INTENT FAQ SECTION */}
       <section className="py-24 bg-slate-50 border-t border-b border-slate-100">

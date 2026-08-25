@@ -17,6 +17,7 @@ import ServicesPage from './pages/ServicesPage';
 import IndustriesPage from './pages/IndustriesPage';
 import CaseStudiesPage from './pages/CaseStudiesPage';
 import ClientsPage from './pages/ClientsPage';
+import ReviewsPage from './pages/ReviewsPage';
 import GalleryPage from './pages/GalleryPage';
 import ContactPage from './pages/ContactPage';
 import AdminPage from './pages/AdminPage';
@@ -79,7 +80,10 @@ function AppContent() {
       case '#case-studies':
         return <CaseStudiesPage />;
       case '#clients':
-        return <ClientsPage />;
+        return <ClientsPage onNavigate={handleLinkClick} />;
+      case '#reviews':
+      case '#feedback':
+        return <ReviewsPage onNavigate={handleLinkClick} />;
       case '#gallery':
         return <GalleryPage />;
       case '#contact':

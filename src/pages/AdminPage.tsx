@@ -4,11 +4,12 @@ import { useCMS } from '../context/CMSContext';
 import { 
   Lock, Search, Download, Calendar, Mail, Phone, RefreshCw, 
   Send, CheckCircle2, Shield, Settings, Plus, Trash2, Edit2, 
-  Upload, Video, Image as ImageIcon, Sparkles, FileText, Layout
+  Upload, Video, Image as ImageIcon, Sparkles, FileText, Layout,
+  Star, MessageSquare, Eye, EyeOff, Building, User, TrendingUp
 } from 'lucide-react';
 import { motion } from 'motion/react';
 
-type AdminTab = 'leads' | 'hero' | 'clients' | 'case_studies' | 'gallery' | 'testimonials';
+type AdminTab = 'leads' | 'public_reviews' | 'hero' | 'clients' | 'case_studies' | 'gallery' | 'testimonials';
 
 export default function AdminPage() {
   const { 
@@ -16,7 +17,8 @@ export default function AdminPage() {
     caseStudies, upsertCaseStudy, removeCaseStudy,
     clientLogos, upsertClientLogo, removeClientLogo,
     galleryItems, upsertGalleryItem, removeGalleryItem,
-    testimonials, upsertTestimonial, removeTestimonial
+    testimonials, upsertTestimonial, removeTestimonial,
+    publicReviews, deleteReview, toggleReviewVisibility, refreshCMS
   } = useCMS();
 
   // Guard passcode
@@ -28,6 +30,7 @@ export default function AdminPage() {
   const [enquiries, setEnquiries] = useState<Enquiry[]>([]);
   const [loadingLeads, setLoadingLeads] = useState(false);
   const [filterText, setFilterText] = useState('');
+  const [reviewStatusFilter, setReviewStatusFilter] = useState<'all' | 'published' | 'hidden'>('all');
 
   // Editing forms state
   // 1. Hero
@@ -342,7 +345,8 @@ export default function AdminPage() {
           {/* Dashboard Control Tabs */}
           <div className="flex flex-wrap gap-2 border-b border-slate-200 pb-3">
             {[
-              { id: 'leads', label: 'Lead Submissions', icon: <FileText size={14} /> },
+              { id: 'leads', label: 'Lead Submissions', icon: <FileText size={14} />, badge: enquiries.length },
+              { id: 'public_reviews', label: 'Public Reviews & Feedback', icon: <Star size={14} />, badge: publicReviews.length },
               { id: 'hero', label: 'Hero Section', icon: <Layout size={14} /> },
               { id: 'clients', label: 'Client Logos', icon: <Plus size={14} /> },
               { id: 'case_studies', label: 'Case Studies', icon: <Edit2 size={14} /> },
@@ -365,7 +369,14 @@ export default function AdminPage() {
                 }`}
               >
                 {tab.icon}
-                {tab.label}
+                <span>{tab.label}</span>
+                {typeof tab.badge === 'number' && (
+                  <span className={`px-1.5 py-0.2 rounded-full text-[10px] font-mono ${
+                    activeTab === tab.id ? 'bg-accent text-primary font-bold' : 'bg-slate-100 text-slate-600'
+                  }`}>
+                    {tab.badge}
+                  </span>
+                )}
               </button>
             ))}
           </div>
@@ -502,6 +513,247 @@ export default function AdminPage() {
                             </td>
                           </tr>
                         ))}
+                      </tbody>
+                    </table>
+                  </div>
+                )}
+              </div>
+            </div>
+          )}
+
+          {/* TAB: PUBLIC REVIEWS & FEEDBACK MANAGEMENT */}
+          {activeTab === 'public_reviews' && (
+            <div className="space-y-8">
+              {/* Top Stats Cards */}
+              <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
+                <div className="bg-white p-6 rounded-xl border border-slate-100 shadow-sm space-y-2">
+                  <span className="text-[9px] text-slate-400 uppercase font-bold block tracking-wider">Total Reviews Logged</span>
+                  <p className="text-3xl font-heading font-bold text-primary">{publicReviews.length}</p>
+                  <span className="text-[9px] font-mono font-semibold text-emerald-600 uppercase">Cloud Synced</span>
+                </div>
+
+                <div className="bg-white p-6 rounded-xl border border-slate-100 shadow-sm space-y-2">
+                  <span className="text-[9px] text-slate-400 uppercase font-bold block tracking-wider">Average Public Rating</span>
+                  <div className="flex items-center gap-2">
+                    <p className="text-3xl font-heading font-bold text-primary">
+                      {publicReviews.length > 0 
+                        ? (publicReviews.reduce((acc, r) => acc + (r.rating || 5), 0) / publicReviews.length).toFixed(1)
+                        : '5.0'}
+                    </p>
+                    <div className="flex text-amber-400">
+                      {[...Array(5)].map((_, i) => (
+                        <Star key={i} size={14} className="fill-amber-400" />
+                      ))}
+                    </div>
+                  </div>
+                  <span className="text-[9px] font-mono font-semibold text-slate-500 uppercase">Verified Score</span>
+                </div>
+
+                <div className="bg-white p-6 rounded-xl border border-slate-100 shadow-sm space-y-2">
+                  <span className="text-[9px] text-slate-400 uppercase font-bold block tracking-wider">Live Publicly Published</span>
+                  <p className="text-3xl font-heading font-bold text-emerald-600">
+                    {publicReviews.filter(r => r.status !== 'hidden').length}
+                  </p>
+                  <span className="text-[9px] font-mono font-semibold text-emerald-600 uppercase">Visible on Site</span>
+                </div>
+
+                <div className="bg-white p-6 rounded-xl border border-slate-100 shadow-sm space-y-2">
+                  <span className="text-[9px] text-slate-400 uppercase font-bold block tracking-wider">Hidden / Moderated</span>
+                  <p className="text-3xl font-heading font-bold text-amber-600">
+                    {publicReviews.filter(r => r.status === 'hidden').length}
+                  </p>
+                  <span className="text-[9px] font-mono font-semibold text-amber-600 uppercase">Drafted / Suppressed</span>
+                </div>
+              </div>
+
+              {/* Reviews Table and Actions */}
+              <div className="bg-white border border-slate-100 rounded-xl shadow-lg overflow-hidden">
+                <div className="p-6 border-b border-slate-50 flex flex-col sm:flex-row justify-between items-center gap-4 bg-slate-50/50">
+                  <div className="flex flex-wrap items-center gap-3 w-full sm:w-auto">
+                    <div className="relative flex-grow sm:w-72">
+                      <Search className="absolute left-3 top-2.5 text-slate-400" size={14} />
+                      <input
+                        type="text"
+                        placeholder="Search review by author, brand, email, keyword..."
+                        value={filterText}
+                        onChange={(e) => setFilterText(e.target.value)}
+                        className="w-full bg-white border border-slate-200 pl-9 pr-4 py-2 outline-none rounded-lg text-xs font-sans focus:border-accent"
+                      />
+                    </div>
+
+                    <select
+                      value={reviewStatusFilter}
+                      onChange={(e) => setReviewStatusFilter(e.target.value as any)}
+                      className="bg-white border border-slate-200 px-3 py-2 rounded-lg text-xs font-sans text-slate-700 outline-none"
+                    >
+                      <option value="all">All Statuses</option>
+                      <option value="published">Published Only</option>
+                      <option value="hidden">Hidden Only</option>
+                    </select>
+                  </div>
+
+                  <div className="flex items-center gap-3">
+                    <button
+                      onClick={refreshCMS}
+                      className="flex items-center gap-1.5 bg-white border border-slate-200 hover:bg-slate-50 text-slate-700 px-3.5 py-2 rounded-lg text-xs font-mono font-semibold uppercase tracking-wider"
+                    >
+                      <RefreshCw size={12} />
+                      <span>Sync Ledger</span>
+                    </button>
+                  </div>
+                </div>
+
+                {publicReviews.length === 0 ? (
+                  <div className="py-24 text-center space-y-4">
+                    <div className="w-12 h-12 bg-slate-100 rounded-full flex items-center justify-center mx-auto text-slate-400">
+                      <MessageSquare size={20} />
+                    </div>
+                    <div className="space-y-1">
+                      <h4 className="font-heading font-semibold text-sm uppercase text-primary">No Public Reviews Yet</h4>
+                      <p className="text-xs text-slate-500 max-w-sm mx-auto leading-relaxed font-light">
+                        When clients post reviews via the public feedback section, they will appear here for administrative oversight and moderation.
+                      </p>
+                    </div>
+                  </div>
+                ) : (
+                  <div className="overflow-x-auto">
+                    <table className="w-full text-left border-collapse">
+                      <thead>
+                        <tr className="bg-slate-50 text-slate-600 text-[10px] uppercase font-bold tracking-wider font-heading border-b border-slate-100">
+                          <th className="p-6">Client &amp; Brand</th>
+                          <th className="p-6">Author &amp; Auth Email</th>
+                          <th className="p-6">Rating &amp; ROAS Metric</th>
+                          <th className="p-6">Feedback Commentary</th>
+                          <th className="p-6">Status</th>
+                          <th className="p-6 text-right">Admin Actions</th>
+                        </tr>
+                      </thead>
+                      <tbody className="divide-y divide-slate-150">
+                        {publicReviews
+                          .filter(r => {
+                            const matchStatus = reviewStatusFilter === 'all' || r.status === reviewStatusFilter || (!r.status && reviewStatusFilter === 'published');
+                            const q = filterText.toLowerCase().trim();
+                            const matchSearch = !q ||
+                              r.businessName?.toLowerCase().includes(q) ||
+                              r.authorName?.toLowerCase().includes(q) ||
+                              r.authorEmail?.toLowerCase().includes(q) ||
+                              r.feedback?.toLowerCase().includes(q) ||
+                              r.growthResult?.toLowerCase().includes(q);
+                            return matchStatus && matchSearch;
+                          })
+                          .map((review) => {
+                            const isHidden = review.status === 'hidden';
+
+                            return (
+                              <tr key={review.id} className="hover:bg-slate-50/50 transition-colors">
+                                {/* Business */}
+                                <td className="p-6 space-y-1 max-w-[200px]">
+                                  <span className="font-heading font-bold text-xs text-primary block truncate">
+                                    {review.businessName}
+                                  </span>
+                                  <span className="inline-block bg-slate-100 text-slate-600 text-[9px] font-mono px-2 py-0.5 rounded">
+                                    {review.industry}
+                                  </span>
+                                </td>
+
+                                {/* Author & Auth Email */}
+                                <td className="p-6 space-y-1 max-w-[220px]">
+                                  <span className="font-heading font-semibold text-xs text-primary block leading-none">
+                                    {review.authorName}
+                                  </span>
+                                  {review.role && (
+                                    <span className="text-[10px] text-slate-500 font-sans block">
+                                      {review.role}
+                                    </span>
+                                  )}
+                                  <div className="flex items-center gap-1.5 text-[10px] text-slate-700 font-mono bg-slate-100 px-2 py-0.5 rounded border border-slate-200 truncate">
+                                    <Mail size={10} className="shrink-0 text-slate-500" />
+                                    <span className="truncate">{review.authorEmail}</span>
+                                  </div>
+                                </td>
+
+                                {/* Rating & Result */}
+                                <td className="p-6 space-y-1.5">
+                                  <div className="flex items-center gap-1 text-amber-500">
+                                    {[...Array(5)].map((_, i) => (
+                                      <Star
+                                        key={i}
+                                        size={12}
+                                        className={i < (review.rating || 5) ? 'fill-amber-400 text-amber-400' : 'text-slate-200'}
+                                      />
+                                    ))}
+                                    <span className="font-mono text-xs font-bold text-slate-700 ml-1">
+                                      {review.rating || 5}.0
+                                    </span>
+                                  </div>
+                                  {review.growthResult && (
+                                    <span className="inline-block text-[10px] font-mono font-bold text-emerald-700 bg-emerald-50 border border-emerald-200 px-2 py-0.5 rounded">
+                                      {review.growthResult}
+                                    </span>
+                                  )}
+                                </td>
+
+                                {/* Feedback text */}
+                                <td className="p-6 max-w-sm">
+                                  <p className="text-xs text-slate-700 font-sans leading-relaxed line-clamp-3 italic">
+                                    &ldquo;{review.feedback}&rdquo;
+                                  </p>
+                                  <span className="text-[9px] font-mono text-slate-400 block mt-1">
+                                    {review.createdAt?.toDate 
+                                      ? review.createdAt.toDate().toLocaleString('en-IN') 
+                                      : review.createdAt 
+                                        ? new Date(review.createdAt).toLocaleString()
+                                        : 'Verified'}
+                                  </span>
+                                </td>
+
+                                {/* Status */}
+                                <td className="p-6">
+                                  {isHidden ? (
+                                    <span className="inline-flex items-center gap-1 text-[10px] font-mono font-semibold bg-amber-50 text-amber-700 border border-amber-200 px-2.5 py-1 rounded-full">
+                                      <EyeOff size={11} /> Hidden
+                                    </span>
+                                  ) : (
+                                    <span className="inline-flex items-center gap-1 text-[10px] font-mono font-semibold bg-emerald-50 text-emerald-700 border border-emerald-200 px-2.5 py-1 rounded-full">
+                                      <CheckCircle2 size={11} /> Published
+                                    </span>
+                                  )}
+                                </td>
+
+                                {/* Actions */}
+                                <td className="p-6 text-right space-x-2 whitespace-nowrap">
+                                  <button
+                                    onClick={async () => {
+                                      const nextStatus = isHidden ? 'published' : 'hidden';
+                                      await toggleReviewVisibility(review.id, nextStatus);
+                                    }}
+                                    className={`p-2 rounded-lg border text-xs font-mono transition-colors inline-flex items-center gap-1 ${
+                                      isHidden 
+                                        ? 'bg-emerald-50 border-emerald-200 text-emerald-700 hover:bg-emerald-100'
+                                        : 'bg-amber-50 border-amber-200 text-amber-700 hover:bg-amber-100'
+                                    }`}
+                                    title={isHidden ? 'Publish on website' : 'Hide from public view'}
+                                  >
+                                    {isHidden ? <Eye size={13} /> : <EyeOff size={13} />}
+                                    <span className="text-[10px] font-bold uppercase">{isHidden ? 'Publish' : 'Hide'}</span>
+                                  </button>
+
+                                  <button
+                                    onClick={async () => {
+                                      if (confirm(`Permanently delete review from "${review.businessName}" (${review.authorEmail})?`)) {
+                                        await deleteReview(review.id);
+                                      }
+                                    }}
+                                    className="p-2 rounded-lg border bg-rose-50 border-rose-200 text-rose-600 hover:bg-rose-100 text-xs font-mono transition-colors inline-flex items-center gap-1"
+                                    title="Permanently Delete Review"
+                                  >
+                                    <Trash2 size={13} />
+                                    <span className="text-[10px] font-bold uppercase">Delete</span>
+                                  </button>
+                                </td>
+                              </tr>
+                            );
+                          })}
                       </tbody>
                     </table>
                   </div>

@@ -35,6 +35,22 @@ export interface Testimonial {
   image: string;
 }
 
+export interface PublicReview {
+  id: string;
+  businessName: string;
+  authorName: string;
+  authorEmail: string;
+  role: string;
+  rating: number;
+  industry: string;
+  growthResult: string;
+  feedback: string;
+  avatarUrl?: string;
+  status: 'published' | 'hidden';
+  createdAt: any;
+  updatedAt?: any;
+}
+
 export interface IndustryGroup {
   category: string;
   icon: string;
